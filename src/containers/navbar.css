@@ -1,0 +1,17 @@
+.NavBar{
+    height: 3rem;
+    display: flex;
+    width: 100%;
+    background-color: #2e2e30;
+    border-bottom: 1px solid var(--color-navigation-border);
+    .LeftNavBar{
+        margin-top: 7px;
+        display: flex;
+        width: 95%;
+        margin-left: 20px;
+    }
+    .rightNavBar{
+        margin-top: 7px;
+        display: flex;
+    }
+}
