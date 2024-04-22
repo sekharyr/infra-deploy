@@ -18,7 +18,7 @@ import {
 
 const NavBar = () => {
   return (
-    <nav className="border-b mb-5 px-5 py-3">
+    <nav className="border-b px-5 py-3">
       <Container>
         <Flex justify="between">
           <Flex align="center" gap="3">
@@ -40,6 +40,7 @@ const NavLinks = () => {
   const links = [
     { label: "Dashboard", href: "/" },
     { label: "Issues", href: "/issues/list" },
+    { label: "ProjectView", href: "/projectView"}
   ];
 
   return (

@@ -1,0 +1,17 @@
+.ListIconSvg {
+  border-radius: 6px;
+  height: 30px;
+  width: 30px;
+  box-shadow: inset 0 -2px rgba(0, 0, 0, 0.05);
+  align-items: center;
+  background: #c7c4c4;
+  -webkit-print-color-adjust: exact;
+  color-adjust: exact;
+  display: flex;
+  fill: #fff;
+  flex: 0 0 auto;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #a69ff3;
+  position: relative;
+}

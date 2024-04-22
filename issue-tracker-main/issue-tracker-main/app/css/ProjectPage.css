@@ -1,0 +1,23 @@
+.tableSpace {
+  display: flex;
+  margin-left: 1rem;
+  align-items: center;
+}
+
+.project-page {
+  .ant-divider-horizontal {
+    margin: 6px;
+  }
+  .ant-divider-vertical {
+    margin-top: 0.5rem;
+    height: 3rem;
+    border-width: 3px;
+  }
+}
+
+.subNavbar {
+  margin-left: 25px;
+  display: flex;
+  justify-content: start;
+  cursor: pointer;
+}

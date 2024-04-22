@@ -1,0 +1,60 @@
+.overview-section {
+  display: flex;
+  height: 100vh;
+}
+
+.overview-right-section {
+  background-color: #f9f8f8;
+}
+
+.project-roles {
+  display: flex;
+  align-items: center;
+  .project-roles-element {
+  }
+  .avatar-size {
+    height: 8.5rem;
+    width: 8.5rem;
+  }
+}
+
+.TaskDescriptions {
+  .ant-descriptions-item-label {
+    color: rgba(0, 0, 0, 1);
+    flex-basis: 20%;
+  }
+}
+.task-details {
+  textarea,
+  input {
+    border: none;
+    outline: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+  }
+}
+
+.comment-card {
+  display: flex;
+  align-items: start;
+  width: 92%;
+}
+
+.fixed-comments-section {
+  display: flex;
+  bottom: 0 !important;
+  position: fixed;
+  width: 100%;
+  background: #f9f8f8;
+  border-top: 1px solid #edeae9;
+  flex-shrink: 0;
+  align-items: baseline;
+  justify-content: left;
+  padding: 0px 0px !important;
+}
+.commentsSection {
+  background: #f9f8f8;
+  border-top: 1px solid #edeae9;
+  padding: 24px 32px !important;
+}

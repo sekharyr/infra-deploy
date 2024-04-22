@@ -1,0 +1,13 @@
+.sliderWindow {
+  width: 50% !important;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.5) !important;
+  .slide-pane__content {
+    padding: 0px 0px !important;
+    .task-details-body {
+      padding: 24px 32px !important;
+    }
+  }
+}
+.sliderOverlay {
+  background-color: rgba(0, 0, 0, 0) !important;
+}

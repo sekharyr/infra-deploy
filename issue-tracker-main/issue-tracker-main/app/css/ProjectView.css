@@ -1,0 +1,7 @@
+.CardView {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  background-color: #e8e8e8;
+  height: 100vh;
+}
