@@ -1,20 +1,52 @@
-import { Avatar } from "@radix-ui/themes";
+"use client";
+
+import { Avatar, Dialog, Button, TextField } from "@radix-ui/themes";
 import "../../css/overview.css";
+import { UserOutlined } from "@ant-design/icons";
 import PlusCircleOutlined from "../../icons/PlusCircleOutlined";
-import { Row, Col } from "antd";
+import { Row, Col, Input } from "antd";
+import { useState } from "react";
 
 const ProjectContributor = (props) => {
+  const [inputData, setInputData] = useState("");
   const { contributors } = props;
+
+  const onInputChange = (e) => {
+    setInputData(e.target.value);
+  };
+
+  const onInvite = () => {
+    props.invitePerson(inputData);
+  };
 
   const contributorList = [];
   for (let i = 0; i <= contributors.length; i++) {
     if (i == 0) {
       contributorList.push(
         <Col className="gutter-row" span={8}>
-          <div className="project-roles">
-            <PlusCircleOutlined />
-            <p className="text-sm p-2 font-medium">Add member</p>
-          </div>
+          <Dialog.Root>
+            <Dialog.Trigger>
+              <div className="project-roles cursor-pointer">
+                <PlusCircleOutlined />
+                <p className="text-sm p-2 font-medium">Add Member</p>
+              </div>
+            </Dialog.Trigger>
+            <Dialog.Content>
+              <Dialog.Title>Add Contributor</Dialog.Title>
+              <Dialog.Description size="2" mb="4">
+                Invite with email or by name
+              </Dialog.Description>
+              <div className="inviteModal mb-4">
+                <Input
+                  placeholder="Add members by name or email.."
+                  onInput={onInputChange}
+                  prefix={<UserOutlined />}
+                  style={{ width: "80%" }}
+                />
+                <Button onClick={onInvite}>Invite</Button>
+              </div>
+            </Dialog.Content>
+          </Dialog.Root>
         </Col>
       );
     } else {

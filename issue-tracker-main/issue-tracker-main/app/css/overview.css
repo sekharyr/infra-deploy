@@ -58,3 +58,8 @@
   border-top: 1px solid #edeae9;
   padding: 24px 32px !important;
 }
+
+.inviteModal{
+    display: flex;
+    justify-content: space-between;
+}

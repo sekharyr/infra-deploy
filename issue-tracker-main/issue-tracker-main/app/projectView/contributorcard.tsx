@@ -1,4 +1,4 @@
-import { Button, Card, Avatar } from "antd";
+import { Button, Card, Avatar, Row, Col } from "antd";
 import ListIconSVG from "../components/ListIconSVG";
 import "../css/card.css";
 
@@ -20,16 +20,16 @@ const ContributorCard = () => {
   const contributors = [];
   for (let i = 0; i < val.length; i++) {
     contributors.push(
-      <div className="cardLine">
+      <Col className="cardLine" span={12}>
         <Avatar src={val[i].src} size={40} />
         <p>{val[i].name}</p>
-      </div>
+      </Col>
     );
   }
   return (
-    <div style={{ flexBasis: "40%", margin: "20px", height: "350px" }}>
+    <div style={{ flexBasis: "47%", margin: "20px", height: "350px" }}>
       <Card title="Contributors" bordered={false} style={{ height: "100%" }}>
-        {contributors}
+        <Row gutter={[16, 24]}>{contributors}</Row>
       </Card>
     </div>
   );

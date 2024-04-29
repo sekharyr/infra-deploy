@@ -1,7 +1,10 @@
-.CardView {
-  width: 100%;
-  display: flex;
-  justify-content: center;
+.ProjectView {
   background-color: #e8e8e8;
-  height: 100vh;
+  height: 100%;
+  justify-content: center;
+  width: 100%;
+  .CardView {
+    display: flex;
+    flex-direction: row;
+  }
 }

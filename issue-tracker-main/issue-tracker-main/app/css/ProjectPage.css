@@ -6,12 +6,13 @@
 
 .project-page {
   .ant-divider-horizontal {
-    margin: 6px;
+    margin: 2px;
+    border-width: 1px;
   }
   .ant-divider-vertical {
     margin-top: 0.5rem;
     height: 3rem;
-    border-width: 3px;
+    border-width: 1px;
   }
 }
 
@@ -20,4 +21,11 @@
   display: flex;
   justify-content: start;
   cursor: pointer;
+}
+
+.DragIcon {
+  display: flex;
+  flex-direction: column;
+  margin: 4px;
+  cursor: grab;
 }

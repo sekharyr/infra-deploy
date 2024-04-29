@@ -2,6 +2,7 @@ import { Collapse, Divider, Space, Table, Tag, Tabs } from "antd";
 import "../../css/ProjectPage.css";
 import TaskTable from "./TaskTable";
 import Overview from "./Overview";
+import projectOverviewDetails from "@/app/constants/TempPayloadsFolder/projectOverviewDetails"; 
 
 interface Props {
   params: { name: string };
@@ -13,12 +14,14 @@ const ProjectPage = ({ params }: Props) => {
       {
         taskName: "Verify The Goods",
         assignee: "Satyabrata Dash",
+        avatar: "SD",
         dueDate: "12/05/2024",
         priority: "low",
       },
       {
         taskName: "Verify The Goods",
         assignee: "Satyabrata Dash",
+        avatar: "SD",
         dueDate: "12/05/2024",
         priority: "Medium",
       },
@@ -27,6 +30,7 @@ const ProjectPage = ({ params }: Props) => {
       {
         taskName: "Collect The Goods",
         assignee: "Satyabrata Dash",
+        avatar: "SD",
         dueDate: "12/05/2024",
         priority: "High",
       },
@@ -35,6 +39,7 @@ const ProjectPage = ({ params }: Props) => {
       {
         taskName: "Check The Goods",
         assignee: "Satyabrata Dash",
+        avatar: "SD",
         dueDate: "12/05/2024",
         priority: "low",
       },
@@ -64,7 +69,6 @@ const ProjectPage = ({ params }: Props) => {
                   <p style={{ width: "40%" }}>Task Name</p>
                   <Divider
                     type="vertical"
-                    style={{ borderWidth: "3px" }}
                   ></Divider>
                   <p style={{ width: "10%" }}>Assignee</p>
                   <Divider type="vertical"></Divider>
@@ -73,8 +77,7 @@ const ProjectPage = ({ params }: Props) => {
                   <p style={{ width: "10%" }}>Priority</p>
                   <Divider type="vertical"></Divider>
                 </div>
-                <Divider></Divider>
-                <TaskTable value={value} />
+                <TaskTable value={value} projectName={params.name} />
               </div>
             ),
             disabled: false,
