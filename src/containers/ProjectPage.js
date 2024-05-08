@@ -7,7 +7,7 @@ const ProjectPage = () => {
         "taskName": "Verify The Goods",
         "assignee": "Satyabrata Dash",
         "dueDate" : "12/05/2024",
-        "priority": "low"
+        "priority": "Low"
     },{
         "taskName": "Verify The Goods",
         "assignee": "Satyabrata Dash",
@@ -22,7 +22,7 @@ const ProjectPage = () => {
         "taskName": "Check The Goods",
         "assignee": "Satyabrata Dash",
         "dueDate" : "12/05/2024",
-        "priority": "low"
+        "priority": "Low"
     }]}
     return(
         <div>

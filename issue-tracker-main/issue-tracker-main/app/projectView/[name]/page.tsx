@@ -2,21 +2,35 @@ import { Collapse, Divider, Space, Table, Tag, Tabs } from "antd";
 import "../../css/ProjectPage.css";
 import TaskTable from "./TaskTable";
 import Overview from "./Overview";
-import projectOverviewDetails from "@/app/constants/TempPayloadsFolder/projectOverviewDetails"; 
+import projectOverviewDetails from "@/app/constants/TempPayloadsFolder/projectOverviewDetails";
+import { BookOutlined, FileProtectOutlined, PlusOutlined, UnorderedListOutlined } from "@ant-design/icons";
+import ListIconSVG from "@/app/components/ListIconSVG";
+import FileAttachmentSection from "@/app/components/FileAttachmentSection";
 
 interface Props {
   params: { name: string };
 }
 
 const ProjectPage = ({ params }: Props) => {
+  let files = [
+    "jhk.jpg",
+    "hhui.jpg",
+    "yt.jpg",
+    "freak.jpg",
+    "freak2.jpg",
+    "speak.jpg",
+    "spe.jpg",
+  ];
   const value = {
-    toDo: [
+    "To Do": [
       {
         taskName: "Verify The Goods",
         assignee: "Satyabrata Dash",
         avatar: "SD",
         dueDate: "12/05/2024",
-        priority: "low",
+        priority: "Low",
+        color: "#D1A500 ",
+        status: "Open",
       },
       {
         taskName: "Verify The Goods",
@@ -24,6 +38,8 @@ const ProjectPage = ({ params }: Props) => {
         avatar: "SD",
         dueDate: "12/05/2024",
         priority: "Medium",
+        color: "#cc5500",
+        status: "Open",
       },
     ],
     Doing: [
@@ -33,6 +49,8 @@ const ProjectPage = ({ params }: Props) => {
         avatar: "SD",
         dueDate: "12/05/2024",
         priority: "High",
+        color: "#c04000",
+        status: "In Progress",
       },
     ],
     Done: [
@@ -41,59 +59,77 @@ const ProjectPage = ({ params }: Props) => {
         assignee: "Satyabrata Dash",
         avatar: "SD",
         dueDate: "12/05/2024",
-        priority: "low",
+        priority: "Low",
+        color: "#D1A500 ",
+        status: "Completed",
       },
     ],
   };
   return (
-    <div>
-      <Tabs
-        defaultActiveKey="2"
-        items={[
-          {
-            label: "Overview",
-            key: "1",
-            children: (
-              <div>
-                <Overview />
-              </div>
-            ),
-          },
-          {
-            label: "List",
-            key: "2",
-            children: (
-              <div className="project-page">
-                <Divider></Divider>
-                <div className="tableSpace">
-                  <p style={{ width: "40%" }}>Task Name</p>
-                  <Divider
-                    type="vertical"
-                  ></Divider>
-                  <p style={{ width: "10%" }}>Assignee</p>
-                  <Divider type="vertical"></Divider>
-                  <p style={{ width: "10%" }}>Due Date</p>
-                  <Divider type="vertical"></Divider>
-                  <p style={{ width: "10%" }}>Priority</p>
-                  <Divider type="vertical"></Divider>
+    <div className="ProjectPageDetails">
+      <div>
+        <ListIconSVG />
+      </div>
+      <div style={{ width: "100%" }} className="ml-5">
+        <p>{decodeURI(params.name)}</p>
+        <Tabs
+          className="-ml-7"
+          defaultActiveKey="2"
+          items={[
+            {
+              label: <p><BookOutlined className="mr-1"/>Overview</p>,
+              key: "1",
+              children: (
+                <div>
+                  <Overview />
                 </div>
-                <TaskTable value={value} projectName={params.name} />
-              </div>
-            ),
-            disabled: false,
-          },
-          {
-            label: "Dashboard",
-            key: "4",
-            children: "Dashboard",
-          },
-          {
-            label: "Map",
-            key: "3",
-            children: "Tab 3",
-          },
-        ]}
-      />
+              ),
+            },
+            {
+              label: <p><UnorderedListOutlined className="mr-1"/>List</p>,
+              key: "2",
+              children: (
+                <div className="project-page">
+                  <Divider></Divider>
+                  <div className="tableSpace">
+                    <p style={{ width: "40%" }}>Task Name</p>
+                    <Divider type="vertical"></Divider>
+                    <p style={{ width: "10%" }}>Assignee</p>
+                    <Divider type="vertical"></Divider>
+                    <p style={{ width: "10%" }}>Due Date</p>
+                    <Divider type="vertical"></Divider>
+                    <p style={{ width: "10%" }}>Status</p>
+                    <Divider type="vertical"></Divider>
+                    <p style={{ width: "10%" }}>Priority</p>
+                    <Divider type="vertical"></Divider>
+                  </div>
+                  <TaskTable value={value} projectName={params.name} />
+                </div>
+              ),
+              disabled: false,
+            },
+            {
+              label: <p><FileProtectOutlined className="mr-1"/>Files</p>,
+              key: "3",
+              children: (
+                <div>
+                  {
+                    <FileAttachmentSection
+                      showFooter={true}
+                      attachedFiles={files}
+                    />
+                  }
+                </div>
+              ),
+            },
+            {
+              label: "Dashboard",
+              key: "4",
+              children: "Dashboard",
+            },
+          ]}
+        />
+        </div>
     </div>
   );
 };

@@ -8,3 +8,34 @@
     flex-direction: row;
   }
 }
+
+
+.OmnibuttonButtonCard {
+    align-items: center;
+    border-radius: 16px;
+    display: inline-flex;
+    height: 32px;
+    margin: 15px;
+    padding: 6px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.omniButton{
+    border-color: #a2a0a2;
+    background: rgba(255, 255, 255, 0.11);
+}
+
+.typo {
+    font-size: 14px;
+    line-height: 22px;
+    margin-left: 6px;
+    margin-right: 6px;
+}
+
+.dropdownGroup{
+    display: flex;
+    justify-content: space-evenly;
+}

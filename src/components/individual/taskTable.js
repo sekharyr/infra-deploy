@@ -20,7 +20,7 @@ const TaskTable = (props) => {
                         <Divider type="vertical"></Divider>
                         <p style={{width:"10%"}}>{valList[j].dueDate}</p>
                         <Divider type="vertical"></Divider>
-                        <p style={{width:"10%"}}><Tag color="red">{valList[j].priority}</Tag></p>
+                        <p style={{width:"10%"}}><Tag color={valList[j].color}>{valList[j].priority}</Tag></p>
                         <Divider type="vertical"></Divider>
                 </div>
             )

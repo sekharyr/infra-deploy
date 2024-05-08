@@ -22,11 +22,11 @@ const TaskCard = () => {
           </div>
         }
       >
-        <div className="cardLine cursor-pointer items-center">
+        {/*<div className="cardLine cursor-pointer items-center">
           <PlusOutlined />
           <p className="text-sm p-2 font-small">Create Task</p>
         </div>
-        <Divider></Divider>
+        <Divider></Divider>*/}
         <div>
           <Row gutter={[16, 24]}>
             <Col span={20}>Need wiring at Shanghai</Col>

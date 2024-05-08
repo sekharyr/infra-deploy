@@ -37,7 +37,7 @@ let projectOverviewDetails = {
       "spe.jpg",
     ],
     tasks: {
-      toDo: [
+      "To Do": [
         {
           taskName: "Verify The Goods",
           assignee: "Satyabrata Dash",
@@ -166,7 +166,7 @@ let projectOverviewDetails = {
       "spe.jpg",
     ],
     tasks: {
-      toDo: [
+      "To Do": [
         {
           taskName: "Verify The Goods",
           assignee: "Satyabrata Dash",
@@ -295,7 +295,7 @@ let projectOverviewDetails = {
       "spe.jpg",
     ],
     tasks: {
-      toDo: [
+      "To Do": [
         {
           taskName: "Verify The Goods",
           assignee: "Satyabrata Dash",

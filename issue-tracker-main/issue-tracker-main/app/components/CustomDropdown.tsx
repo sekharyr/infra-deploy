@@ -1,9 +1,11 @@
+import DropdownOptions from "../constants/DropdownOptions";
+
 const CustomDropdown = (props) => {
   const defaultValue = props.defaultValue;
-  const dropdownValues = ["Recents", "All"];
+  const dropdownValues = DropdownOptions[props.constName];
   const dropDownDetails = [];
   const OnSelect = (e) => {
-    props.onAllSelect(e.target.value);
+    props.onSelect(e.target.value);
   }
   for (let i = 0; i < dropdownValues.length; i++) {
     dropDownDetails.push(

@@ -11,15 +11,6 @@ import GoogleMapComponent from "@/app/components/GoogleMap";
 const { TextArea } = Input;
 
 const Overview = () => {
-  let files = [
-    "jhk.jpg",
-    "hhui.jpg",
-    "yt.jpg",
-    "freak.jpg",
-    "freak2.jpg",
-    "speak.jpg",
-    "spe.jpg",
-  ];
   let contributors = [
     { name: "Satyabrata Dash", role: "Senior Developer", avatar: "SD" },
     { name: "Mahesh Gowda", role: "Manager", avatar: "MG" },
@@ -56,10 +47,6 @@ const Overview = () => {
           contributors={contributors}
           //invitePerson={invitePerson}
         />
-        <p className="text-xl mb-5 mt-3 font-medium">Attachments</p>
-        <div>
-          {<FileAttachmentSection showFooter={true} attachedFiles={files} />}
-        </div>
       </div>
       <div className="overview-right-section w-1/3">
         <div className="m-5">

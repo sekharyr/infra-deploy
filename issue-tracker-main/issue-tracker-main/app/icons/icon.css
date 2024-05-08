@@ -1,0 +1,19 @@
+.MiniIcon, .PillWidget-miniIcon {
+    flex: 0 0 auto;
+    height: 12px;
+    width: 12px;
+}
+
+.OmnibuttonButtonCard-icon {
+    fill: #fff;
+}
+
+.OmnibuttonButtonCard-iconContainer {
+    align-items: center;
+    background: #f06a6a;
+    border-radius: 50%;
+    display: flex;
+    height: 20px;
+    justify-content: center;
+    width: 20px;
+}

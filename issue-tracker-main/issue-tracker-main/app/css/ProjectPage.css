@@ -14,6 +14,10 @@
     height: 3rem;
     border-width: 1px;
   }
+  .ant-input{
+    border: none !important;
+    background: inherit !important;
+  }
 }
 
 .subNavbar {
@@ -28,4 +32,28 @@
   flex-direction: column;
   margin: 4px;
   cursor: grab;
+}
+
+.add-section{
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+}
+
+.ProjectPageDetails{
+    display: flex;
+    .ant-tabs-nav-list{
+        margin-left: 1.8rem;
+    }
+    .ant-tabs-content-holder{
+        margin-left: -2rem;
+    }
+    .ListIconSvg{
+        height: 50px;
+        width: 50px;
+    }
+}
+
+.collapseHead {
+    display: flex;
 }

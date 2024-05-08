@@ -34,7 +34,7 @@ const ProjectCard = (props) => {
 
   const projects = [];
   for (let i = 0; i < projectNames.length; i++) {
-    if (i == 0) {
+    /*if (i == 0) {
       projects.push(
         <Dialog.Root open={open} onOpenChange={setOpen}>
           <Dialog.Trigger>
@@ -59,25 +59,33 @@ const ProjectCard = (props) => {
           </Dialog.Content>
         </Dialog.Root>
       );
-    }
+    }*/
 
     projects.push(
       <Col className="cardLine" span={12}>
         <ListIconSVG />
-        <Link href={`/projectView/${projectNames[i]}`}>
+        <Link
+          href={{
+            pathname: `/projectView/${projectNames[i]}`,
+            query: {
+              name: projectNames[i],
+            },
+          }}
+        >
           <p className="projectName">{projectNames[i]}</p>
         </Link>
       </Col>
     );
   }
   return (
-    <div style={{ flexBasis: "47%", margin: "20px", height: "350px" }}>
+    <div style={{ flexBasis: "97%", margin: "20px", height: "350px" }}>
       <Card
         title="Projects"
         extra={
           <CustomDropdown
             defaultValue="Recents"
-            onAllSelect={(val) => {
+            constName="projectShowOptions"
+            onSelect={(val) => {
               if (val == "All") {
                 let tempprojectNames = union(
                   projectNames,
