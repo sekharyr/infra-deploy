@@ -60,9 +60,9 @@ const ProjectPage = () => {
         children: 'Tab 3',
       },
       {
-        label: 'Dashboard',
+        label: 'Inventory',
         key: '4',
-        children: 'Dashboard',
+        children: 'Inventory',
       },
     ]}
   />

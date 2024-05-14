@@ -3,9 +3,16 @@ import "../../css/ProjectPage.css";
 import TaskTable from "./TaskTable";
 import Overview from "./Overview";
 import projectOverviewDetails from "@/app/constants/TempPayloadsFolder/projectOverviewDetails";
-import { BookOutlined, FileProtectOutlined, PlusOutlined, UnorderedListOutlined } from "@ant-design/icons";
+import {
+  BookOutlined,
+  FileProtectOutlined,
+  PlusOutlined,
+  UnorderedListOutlined,
+} from "@ant-design/icons";
 import ListIconSVG from "@/app/components/ListIconSVG";
 import FileAttachmentSection from "@/app/components/FileAttachmentSection";
+import FileAttachmentSectionV2 from "@/app/components/FileAttachmentSectionV2";
+import FinalFileAttachmentSection from "@/app/components/FinalFileAttachmentSection";
 
 interface Props {
   params: { name: string };
@@ -77,7 +84,12 @@ const ProjectPage = ({ params }: Props) => {
           defaultActiveKey="2"
           items={[
             {
-              label: <p><BookOutlined className="mr-1"/>Overview</p>,
+              label: (
+                <p>
+                  <BookOutlined className="mr-1" />
+                  Overview
+                </p>
+              ),
               key: "1",
               children: (
                 <div>
@@ -86,7 +98,12 @@ const ProjectPage = ({ params }: Props) => {
               ),
             },
             {
-              label: <p><UnorderedListOutlined className="mr-1"/>List</p>,
+              label: (
+                <p>
+                  <UnorderedListOutlined className="mr-1" />
+                  List
+                </p>
+              ),
               key: "2",
               children: (
                 <div className="project-page">
@@ -109,27 +126,23 @@ const ProjectPage = ({ params }: Props) => {
               disabled: false,
             },
             {
-              label: <p><FileProtectOutlined className="mr-1"/>Files</p>,
-              key: "3",
-              children: (
-                <div>
-                  {
-                    <FileAttachmentSection
-                      showFooter={true}
-                      attachedFiles={files}
-                    />
-                  }
-                </div>
+              label: (
+                <p>
+                  <FileProtectOutlined className="mr-1" />
+                  Files
+                </p>
               ),
+              key: "3",
+              children: <div>{<FileAttachmentSectionV2 />}</div>,
             },
             {
-              label: "Dashboard",
+              label: "Inventory",
               key: "4",
-              children: "Dashboard",
+              children: "Inventory",
             },
           ]}
         />
-        </div>
+      </div>
     </div>
   );
 };
