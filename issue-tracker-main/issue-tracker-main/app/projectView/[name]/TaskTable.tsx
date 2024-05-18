@@ -7,7 +7,7 @@ import {
   Tag,
   Input,
   Dropdown,
-  MenuProps,
+  MenuProps,DatePicker
 } from "antd";
 import "../../css/ProjectPage.css";
 import {
@@ -21,7 +21,9 @@ import { useState, useEffect } from "react";
 import TaskDetails from "./TaskDetails";
 import DragAndDropIcon from "../../components/DragAndDropIcon";
 import CustomDropdown from "@/app/components/CustomDropdown";
+import dayjs from 'dayjs';
 
+const dateFormat = 'YYYY-MM-DD';
 const TaskTable = (props) => {
   const value = props.value;
   const [isPaneOpen, setIsPaneOpen] = useState(false);
@@ -67,6 +69,10 @@ const TaskTable = (props) => {
     setCollapsedItems([...temp]);
   }
 
+  const onDateChange = (date, dateString) => {
+    console.log(date, dateString);
+  };
+
   const onAddTask = (key:string) => {
     console.log("key is::",key);
     let temp = []
@@ -109,7 +115,7 @@ const TaskTable = (props) => {
           </Tooltip>
 
           <Divider type="vertical"></Divider>
-          <p style={{ width: "10%" }}>{"12/04/24"}</p>
+          <DatePicker onChange={onDateChange} />
           <Divider type="vertical"></Divider>
           <p style={{ width: "10%" }}>
             <CustomDropdown
@@ -169,7 +175,7 @@ const TaskTable = (props) => {
               </Tooltip>
 
               <Divider type="vertical"></Divider>
-              <p style={{ width: "10%" }}>{"12/04/24"}</p>
+              <DatePicker onChange={onDateChange} />
               <Divider type="vertical"></Divider>
               <p style={{ width: "10%" }}>
                 <CustomDropdown
@@ -228,7 +234,7 @@ const TaskTable = (props) => {
               </Tooltip>
 
               <Divider type="vertical"></Divider>
-              <p style={{ width: "10%" }}>{valList[j].dueDate}</p>
+              <DatePicker defaultValue={dayjs('2019-09-03', dateFormat)} onChange={onDateChange} />
               <Divider type="vertical"></Divider>
               <p style={{ width: "10%" }}>
                 <CustomDropdown

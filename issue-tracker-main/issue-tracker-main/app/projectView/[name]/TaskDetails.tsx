@@ -9,7 +9,8 @@ import {
   Button,
   Dropdown,
   Space,
-  Tag
+  Tag,
+  DatePicker
 } from "antd";
 import type { DescriptionsProps } from "antd";
 import { useState } from "react";
@@ -17,7 +18,9 @@ import FileAttachmentSection from "@/app/components/FileAttachmentSection";
 import { DownOutlined } from "@ant-design/icons";
 import type { MenuProps } from "antd";
 import PriorityType from "@/app/constants/PriorityType";
+import dayjs from 'dayjs';
 
+const dateFormat = 'YYYY-MM-DD';
 const TaskDetails = (props) => {
   const filesFromReviewer = ["task.pdf", "overview.pdf"];
   const filesFromAssigner = ["taskDetails.pdf"];
@@ -40,6 +43,9 @@ const TaskDetails = (props) => {
   const showButton = () => {
     setIsClickedOnComment(true);
   };
+  const onDateChange = (date, dateString) => {
+    console.log(date, dateString);
+  };
   const items: DescriptionsProps["items"] = [
     {
       key: "1",
@@ -57,7 +63,7 @@ const TaskDetails = (props) => {
     {
       key: "2",
       label: "Due Date",
-      children: task.dueDate || "",
+      children: <DatePicker defaultValue={dayjs('2019-09-03', dateFormat)} onChange={onDateChange} /> || "",
     },
     {
       key: "3",

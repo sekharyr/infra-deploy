@@ -13,6 +13,7 @@ import ListIconSVG from "@/app/components/ListIconSVG";
 import FileAttachmentSection from "@/app/components/FileAttachmentSection";
 import FileAttachmentSectionV2 from "@/app/components/FileAttachmentSectionV2";
 import FinalFileAttachmentSection from "@/app/components/FinalFileAttachmentSection";
+import InventoryTable from "./inventoryTable";
 
 interface Props {
   params: { name: string };
@@ -29,43 +30,43 @@ const ProjectPage = ({ params }: Props) => {
     "spe.jpg",
   ];
   const value = {
-    "To Do": [
+    "Site Survey": [
       {
-        taskName: "Verify The Goods",
+        taskName: "Site materials check",
         assignee: "Satyabrata Dash",
         avatar: "SD",
-        dueDate: "12/05/2024",
+        dueDate: "2024-05-03",
         priority: "Low",
         color: "#D1A500 ",
         status: "Open",
       },
       {
-        taskName: "Verify The Goods",
+        taskName: "Site availability check",
         assignee: "Satyabrata Dash",
         avatar: "SD",
-        dueDate: "12/05/2024",
+        dueDate: "2024-05-03",
         priority: "Medium",
         color: "#cc5500",
         status: "Open",
       },
     ],
-    Doing: [
+    "Lease Agreement": [
       {
-        taskName: "Collect The Goods",
+        taskName: "Check the agreement",
         assignee: "Satyabrata Dash",
         avatar: "SD",
-        dueDate: "12/05/2024",
+        dueDate: "2024-05-03",
         priority: "High",
         color: "#c04000",
         status: "In Progress",
       },
     ],
-    Done: [
+    "Tower Installation": [
       {
-        taskName: "Check The Goods",
+        taskName: "Find the budget",
         assignee: "Satyabrata Dash",
         avatar: "SD",
-        dueDate: "12/05/2024",
+        dueDate: "2024-04-03",
         priority: "Low",
         color: "#D1A500 ",
         status: "Completed",
@@ -101,7 +102,7 @@ const ProjectPage = ({ params }: Props) => {
               label: (
                 <p>
                   <UnorderedListOutlined className="mr-1" />
-                  List
+                  Tasks
                 </p>
               ),
               key: "2",
@@ -113,7 +114,7 @@ const ProjectPage = ({ params }: Props) => {
                     <Divider type="vertical"></Divider>
                     <p style={{ width: "10%" }}>Assignee</p>
                     <Divider type="vertical"></Divider>
-                    <p style={{ width: "10%" }}>Due Date</p>
+                    <p style={{ width: "13%" }}>Due Date</p>
                     <Divider type="vertical"></Divider>
                     <p style={{ width: "10%" }}>Status</p>
                     <Divider type="vertical"></Divider>
@@ -138,7 +139,7 @@ const ProjectPage = ({ params }: Props) => {
             {
               label: "Inventory",
               key: "4",
-              children: "Inventory",
+              children: <InventoryTable/>,
             },
           ]}
         />
