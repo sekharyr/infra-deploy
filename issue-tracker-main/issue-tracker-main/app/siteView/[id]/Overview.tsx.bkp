@@ -1,0 +1,777 @@
+"use client";
+
+import {
+  Card,
+  Col,
+  Row,
+  Button,
+  Form,
+  Input,
+  Checkbox,
+  InputNumber,
+  Upload,
+  Table,
+  message,
+  Collapse,
+  Modal,
+  DatePicker,
+} from "antd";
+import { useState, useEffect, useRef } from "react";
+import { UploadOutlined } from "@ant-design/icons";
+import axios from "axios";
+
+const { Panel } = Collapse;
+const { TextArea } = Input;
+
+interface BasicInfo {
+  sharingSite?: boolean;
+  siteOwner?: string;
+  siteType?: string;
+  latitude?: number;
+  longitude?: number;
+  towerType?: string;
+  towerHeight?: number;
+  city?: string;
+  buildingHeight?: number;
+  village?: string;
+  siteArea?: number;
+  typeOfPremises?: string;
+  detailedAddress?: string;
+}
+
+interface SiteAccess {
+  is24hrs?: boolean;
+  contactPerson?: string;
+  siteRegion?: string;
+  phoneNo?: string;
+  siteOwnership?: string;
+  liftAvailability?: boolean;
+  needKey?: boolean;
+  accessRoad?: string;
+  stairWidth?: number;
+  doorSize?: number;
+  possibleDifficulties?: string;
+}
+
+interface Survey {
+  surveyorName?: string;
+  surveyorType?: string;
+  date?: string;
+  phoneNo?: string;
+  remark?: string;
+}
+
+interface Photos {
+  siteCoordinates?: string;
+  siteLocation?: string;
+  buildingFloor?: string;
+}
+
+interface SiteInfo {
+  siteName?: string;
+  siteId?: string;
+  region?: string;
+}
+
+const Overview = ({ site }) => {
+  const [siteInfo, setSiteInfo] = useState<SiteInfo | null>(null);
+  const [basicInfo, setBasicInfo] = useState<BasicInfo | null>(null);
+  const [siteAccess, setSiteAccess] = useState<SiteAccess | null>(null);
+  const [surveys, setSurveys] = useState<Survey[]>([]);
+  const [photos, setPhotos] = useState<Photos>({});
+  const [siteInfoEditing, setSiteInfoEditing] = useState(false);
+  const [basicInfoEditing, setBasicInfoEditing] = useState(false);
+  const [siteAccessEditing, setSiteAccessEditing] = useState(false);
+  const [activeKey, setActiveKey] = useState<string[]>(["siteInfo"]);
+  const [isSurveyModalVisible, setIsSurveyModalVisible] = useState(false);
+
+  const [formSiteInfo] = Form.useForm();
+  const [formBasicInfo] = Form.useForm();
+  const [formSiteAccess] = Form.useForm();
+  const [formSurvey] = Form.useForm();
+  // State to manage modal visibility
+
+  // State to hold form values
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [siteInfoRes] = await Promise.all([
+          axios.get(`/api/sites/${site.id}`),
+        ]);
+        setSiteInfo(siteInfoRes.data);
+        setBasicInfo(siteInfoRes.data.basicInfo);
+        setSiteAccess(siteInfoRes.data.siteAccessInfo);
+        setSurveys(siteInfoRes.data.surveys);
+        console.log("Updated surveys:", surveys);
+      } catch (error) {
+        message.error("Failed to load data.");
+      }
+    };
+    fetchData();
+  }, []);
+
+  const handleUpload = (info: any, field: keyof Photos) => {
+    if (info.file.status === "done") {
+      message.success(`${info.file.name} uploaded successfully`);
+      setPhotos({ ...photos, [field]: info.file.response.url });
+    } else if (info.file.status === "error") {
+      message.error(`${info.file.name} upload failed.`);
+    }
+  };
+
+  const surveyColumns = [
+    { title: "Surveyor Name", dataIndex: "surveyorName", key: "surveyorName" },
+    { title: "Surveyor Type", dataIndex: "surveyorType", key: "surveyorType" },
+    { title: "Date", dataIndex: "date", key: "date" },
+    { title: "Phone No", dataIndex: "phoneNo", key: "phoneNo" },
+    { title: "Remark", dataIndex: "remark", key: "remark" },
+  ];
+
+  const saveChanges = async (section: string) => {
+    try {
+      console.log("I am here");
+      const response = await axios.patch(`/api/sites/${site.id}`, {
+        siteId: siteInfo?.siteId,
+        siteName: siteInfo?.siteName,
+        region: siteInfo?.region,
+        basicInfo: basicInfo,
+        siteAccessInfo: siteAccess,
+        sitePhotos: photos,
+        surveys: surveys,
+      });
+      if (response.status === 200) {
+        message.success(`${section} updated successfully`);
+      } else {
+        message.error(`Failed to update ${section}`);
+      }
+      // Optionally update the state with new data if needed
+    } catch (error) {
+      message.error(`Failed to update ${section}.`);
+    }
+  };
+
+  // Open modal
+  const showSurveyModal = () => {
+    setIsSurveyModalVisible(true);
+  };
+
+  // Close modal
+  const handleCancelSurvey = () => {
+    setIsSurveyModalVisible(false);
+    formSurvey.resetFields();
+  };
+
+  const surveysRef = useRef(surveys);
+  const [dummyState, setDummyState] = useState(0); // Dummy state to force re-render
+
+  // Handle form submission for adding new survey
+  const handleAddSurvey = () => {
+    formSurvey
+      .validateFields()
+      .then((values) => {
+        console.log(values);
+        const newSurvey = {
+          ...values,
+          // key: surveys.length + 1,
+          key: surveysRef.current.length + 1,
+          date: values.date.format("YYYY-MM-DD"),
+        };
+        // formSurvey.submit();
+        // setSurveys([...surveys, newSurvey]); // Update surveys state
+        // setSurveys((prevSurveys) => [...prevSurveys, newSurvey]);
+        // Explicitly creating a new array for surveys to ensure immutability
+        // const updatedSurveys = [...surveys, newSurvey];
+
+        // setSurveys(updatedSurveys); // Update the surveys state
+        // setSurveys((prevSurveys) => {
+        //   const updatedSurveys = [...prevSurveys, newSurvey];
+        //   console.log("Updated Surveys in setSurveys:", updatedSurveys);
+        //   return updatedSurveys;
+        // });
+        surveysRef.current = [...surveysRef.current, newSurvey];
+
+        // Manually trigger a re-render by updating dummy state
+        setDummyState((prevState) => prevState + 1);
+        console.log("Hello");
+        console.log(surveys);
+        console.log(newSurvey);
+
+        setIsSurveyModalVisible(false);
+        saveChanges("Surveys");
+        formSurvey.resetFields();
+      })
+      .catch((info) => {
+        console.log("Validate Failed:", info);
+      });
+  };
+
+  // const handleEditClick = (e: React.MouseEvent, toggleState: Function) => {
+  //   e.stopPropagation(); // Prevent panel collapse
+  //   toggleState((prev) => !prev);
+  // };
+  const handleEditClick = (
+    e: React.MouseEvent,
+    toggleState: Function,
+    section: string
+  ) => {
+    e.stopPropagation();
+    toggleState((prev) => !prev);
+    if (section === "siteInfo" && siteInfoEditing) {
+      formSiteInfo.submit();
+    }
+    if (section === "basicInfo" && basicInfoEditing) {
+      formBasicInfo.submit();
+    }
+    if (section === "siteAccess" && siteAccessEditing) {
+      formSiteAccess.submit();
+    }
+  };
+  // const handleEditClick = (e: React.MouseEvent,  toggleState: Function) => {
+  //   e.stopPropagation();
+  //   toggleState((prev) => !prev);
+  //   if (siteInfoEditing) {
+  //     form.submit();
+  //   }
+  // };
+  const handleCollapseChange = (key: string | string[]) => {
+    setActiveKey(Array.isArray(key) ? key : [key]); // Update active panels
+  };
+
+  return (
+    <div>
+      <Row gutter={24}>
+        <Col span={16}>
+          <Collapse activeKey={activeKey} onChange={handleCollapseChange}>
+            <Panel
+              header="Site Info"
+              key="siteInfo"
+              extra={
+                activeKey.includes("siteInfo") && (
+                  <Button
+                    onClick={(e) =>
+                      handleEditClick(e, setSiteInfoEditing, "siteInfo")
+                    }
+                  >
+                    {siteInfoEditing ? "Save" : "Edit"}
+                  </Button>
+                )
+              }
+            >
+              <Form
+                layout="vertical"
+                onFinish={() => saveChanges("Site Info")}
+                form={formSiteInfo}
+              >
+                <Row gutter={16}>
+                  <Col span={8}>
+                    <Form.Item label="Site Name">
+                      <Input
+                        value={siteInfo?.siteName}
+                        disabled={!siteInfoEditing}
+                        onChange={(e) =>
+                          setSiteInfo({
+                            ...siteInfo,
+                            siteName: e.target.value,
+                          })
+                        }
+                      />
+                    </Form.Item>
+                  </Col>
+                  <Col span={8}>
+                    <Form.Item label="Site ID">
+                      <Input
+                        value={siteInfo?.siteId}
+                        disabled={!siteInfoEditing}
+                        onChange={(e) =>
+                          setSiteInfo({ ...siteInfo, siteId: e.target.value })
+                        }
+                      />
+                    </Form.Item>
+                  </Col>
+                  <Col span={8}>
+                    <Form.Item label="Region">
+                      <Input
+                        value={siteInfo?.region}
+                        disabled={!siteInfoEditing}
+                        onChange={(e) =>
+                          setSiteInfo({ ...siteInfo, region: e.target.value })
+                        }
+                      />
+                    </Form.Item>
+                  </Col>
+                </Row>
+              </Form>
+            </Panel>
+
+            <Panel
+              header="Basic Info"
+              key="basicInfo"
+              extra={
+                activeKey.includes("basicInfo") && (
+                  <Button
+                    onClick={(e) =>
+                      handleEditClick(e, setBasicInfoEditing, "basicInfo")
+                    }
+                  >
+                    {basicInfoEditing ? "Save" : "Edit"}
+                  </Button>
+                )
+              }
+            >
+              <Form
+                layout="vertical"
+                onFinish={() => saveChanges("Basic Info")}
+                form={formBasicInfo}
+              >
+                <Row gutter={16}>
+                  <Col span={8}>
+                    <Form.Item label="Sharing Site">
+                      <Checkbox
+                        checked={basicInfo?.sharingSite}
+                        disabled={!basicInfoEditing}
+                        onChange={(e) =>
+                          setBasicInfo({
+                            ...basicInfo,
+                            sharingSite: e.target.checked,
+                          })
+                        }
+                      />
+                    </Form.Item>
+                  </Col>
+                  <Col span={8}>
+                    <Form.Item label="Site Owner">
+                      <Input
+                        value={basicInfo?.siteOwner}
+                        disabled={!basicInfoEditing}
+                        onChange={(e) =>
+                          setBasicInfo({
+                            ...basicInfo,
+                            siteOwner: e.target.value,
+                          })
+                        }
+                      />
+                    </Form.Item>
+                  </Col>
+                  <Col span={8}>
+                    <Form.Item label="Site Type">
+                      <Input
+                        value={basicInfo?.siteType}
+                        disabled={!basicInfoEditing}
+                        onChange={(e) =>
+                          setBasicInfo({
+                            ...basicInfo,
+                            siteType: e.target.value,
+                          })
+                        }
+                      />
+                    </Form.Item>
+                  </Col>
+                  <Col span={8}>
+                    <Form.Item label="Latitude">
+                      <InputNumber
+                        value={basicInfo?.latitude}
+                        disabled={!basicInfoEditing}
+                        onChange={(value) =>
+                          setBasicInfo({ ...basicInfo, latitude: value })
+                        }
+                      />
+                    </Form.Item>
+                  </Col>
+                  <Col span={8}>
+                    <Form.Item label="Longitude">
+                      <InputNumber
+                        value={basicInfo?.longitude}
+                        disabled={!basicInfoEditing}
+                        onChange={(value) =>
+                          setBasicInfo({ ...basicInfo, longitude: value })
+                        }
+                      />
+                    </Form.Item>
+                  </Col>
+                  <Col span={8}>
+                    <Form.Item label="Tower Type">
+                      <Input
+                        value={basicInfo?.towerType}
+                        disabled={!basicInfoEditing}
+                        onChange={(e) =>
+                          setBasicInfo({
+                            ...basicInfo,
+                            towerType: e.target.value,
+                          })
+                        }
+                      />
+                    </Form.Item>
+                  </Col>
+                  <Col span={8}>
+                    <Form.Item label="Tower Height">
+                      <InputNumber
+                        value={basicInfo?.towerHeight}
+                        disabled={!basicInfoEditing}
+                        onChange={(value) =>
+                          setBasicInfo({ ...basicInfo, towerHeight: value })
+                        }
+                      />
+                    </Form.Item>
+                  </Col>
+                  <Col span={8}>
+                    <Form.Item label="City">
+                      <Input
+                        value={basicInfo?.city}
+                        disabled={!basicInfoEditing}
+                        onChange={(e) =>
+                          setBasicInfo({ ...basicInfo, city: e.target.value })
+                        }
+                      />
+                    </Form.Item>
+                  </Col>
+                  <Col span={8}>
+                    <Form.Item label="Building Height">
+                      <InputNumber
+                        value={basicInfo?.buildingHeight}
+                        disabled={!basicInfoEditing}
+                        onChange={(value) =>
+                          setBasicInfo({
+                            ...basicInfo,
+                            buildingHeight: value,
+                          })
+                        }
+                      />
+                    </Form.Item>
+                  </Col>
+                  <Col span={8}>
+                    <Form.Item label="Village">
+                      <Input
+                        value={basicInfo?.village}
+                        disabled={!basicInfoEditing}
+                        onChange={(e) =>
+                          setBasicInfo({
+                            ...basicInfo,
+                            village: e.target.value,
+                          })
+                        }
+                      />
+                    </Form.Item>
+                  </Col>
+                  <Col span={8}>
+                    <Form.Item label="Site Area">
+                      <InputNumber
+                        value={basicInfo?.siteArea}
+                        disabled={!basicInfoEditing}
+                        onChange={(value) =>
+                          setBasicInfo({ ...basicInfo, siteArea: value })
+                        }
+                      />
+                    </Form.Item>
+                  </Col>
+                  <Col span={8}>
+                    <Form.Item label="Type Of Premises">
+                      <Input
+                        value={basicInfo?.typeOfPremises}
+                        disabled={!basicInfoEditing}
+                        onChange={(e) =>
+                          setBasicInfo({
+                            ...basicInfo,
+                            typeOfPremises: e.target.value,
+                          })
+                        }
+                      />
+                    </Form.Item>
+                  </Col>
+                  <Col span={8}>
+                    <Form.Item label="Detailed Address">
+                      <Input
+                        value={basicInfo?.detailedAddress}
+                        disabled={!basicInfoEditing}
+                        onChange={(e) =>
+                          setBasicInfo({
+                            ...basicInfo,
+                            detailedAddress: e.target.value,
+                          })
+                        }
+                      />
+                    </Form.Item>
+                  </Col>
+                </Row>
+              </Form>
+            </Panel>
+
+            <Panel
+              header="Site Access"
+              key="siteAccess"
+              extra={
+                activeKey.includes("siteAccess") && (
+                  <Button
+                    onClick={(e) =>
+                      handleEditClick(e, setSiteAccessEditing, "siteAccess")
+                    }
+                  >
+                    {siteAccessEditing ? "Save" : "Edit"}
+                  </Button>
+                )
+              }
+            >
+              <Form
+                layout="vertical"
+                onFinish={() => saveChanges("Site Access")}
+                form={formSiteAccess}
+              >
+                <Row gutter={16}>
+                  <Col span={8}>
+                    <Form.Item label="24/7 Access">
+                      <Checkbox
+                        checked={siteAccess?.is24hrs}
+                        disabled={!siteAccessEditing}
+                        onChange={(e) =>
+                          setSiteAccess({
+                            ...siteAccess,
+                            is24hrs: e.target.checked,
+                          })
+                        }
+                      />
+                    </Form.Item>
+                  </Col>
+                  <Col span={8}>
+                    <Form.Item label="Contact Person">
+                      <Input
+                        value={siteAccess?.contactPerson}
+                        disabled={!siteAccessEditing}
+                        onChange={(e) =>
+                          setSiteAccess({
+                            ...siteAccess,
+                            contactPerson: e.target.value,
+                          })
+                        }
+                      />
+                    </Form.Item>
+                  </Col>
+                  <Col span={8}>
+                    <Form.Item label="Phone Number">
+                      <Input
+                        value={siteAccess?.phoneNo}
+                        disabled={!siteAccessEditing}
+                        onChange={(e) =>
+                          setSiteAccess({
+                            ...siteAccess,
+                            phoneNo: e.target.value,
+                          })
+                        }
+                      />
+                    </Form.Item>
+                  </Col>
+                  <Col span={8}>
+                    <Form.Item label="Site Ownership">
+                      <Input
+                        value={siteAccess?.siteOwnership}
+                        disabled={!siteAccessEditing}
+                        onChange={(e) =>
+                          setSiteAccess({
+                            ...siteAccess,
+                            siteOwnership: e.target.value,
+                          })
+                        }
+                      />
+                    </Form.Item>
+                  </Col>
+                  <Col span={8}>
+                    <Form.Item label="Lift Availability">
+                      <Checkbox
+                        checked={siteAccess?.liftAvailability}
+                        disabled={!siteAccessEditing}
+                        onChange={(e) =>
+                          setSiteAccess({
+                            ...siteAccess,
+                            liftAvailability: e.target.checked,
+                          })
+                        }
+                      />
+                    </Form.Item>
+                  </Col>
+                  <Col span={8}>
+                    <Form.Item label="Need Key">
+                      <Checkbox
+                        checked={siteAccess?.needKey}
+                        disabled={!siteAccessEditing}
+                        onChange={(e) =>
+                          setSiteAccess({
+                            ...siteAccess,
+                            needKey: e.target.checked,
+                          })
+                        }
+                      />
+                    </Form.Item>
+                  </Col>
+                  <Col span={8}>
+                    <Form.Item label="Access Road">
+                      <Input
+                        value={siteAccess?.accessRoad}
+                        disabled={!siteAccessEditing}
+                        onChange={(e) =>
+                          setSiteAccess({
+                            ...siteAccess,
+                            accessRoad: e.target.value,
+                          })
+                        }
+                      />
+                    </Form.Item>
+                  </Col>
+                  <Col span={8}>
+                    <Form.Item label="Stair Width (m)">
+                      <InputNumber
+                        value={siteAccess?.stairWidth}
+                        disabled={!siteAccessEditing}
+                        onChange={(value) =>
+                          setSiteAccess({ ...siteAccess, stairWidth: value })
+                        }
+                      />
+                    </Form.Item>
+                  </Col>
+                  <Col span={8}>
+                    <Form.Item label="Door Size (m)">
+                      <InputNumber
+                        value={siteAccess?.doorSize}
+                        disabled={!siteAccessEditing}
+                        onChange={(value) =>
+                          setSiteAccess({ ...siteAccess, doorSize: value })
+                        }
+                      />
+                    </Form.Item>
+                  </Col>
+                  <Col span={8}>
+                    <Form.Item label="Possible Difficulties">
+                      <Input
+                        value={siteAccess?.possibleDifficulties}
+                        disabled={!siteAccessEditing}
+                        onChange={(e) =>
+                          setSiteAccess({
+                            ...siteAccess,
+                            possibleDifficulties: e.target.value,
+                          })
+                        }
+                      />
+                    </Form.Item>
+                  </Col>
+                </Row>
+              </Form>
+            </Panel>
+            <Panel
+              header={
+                <div
+                  style={{ display: "flex", justifyContent: "space-between" }}
+                >
+                  <span>Surveys</span>
+                  <Button type="primary" onClick={showSurveyModal}>
+                    New
+                  </Button>
+                </div>
+              }
+              key="surveys"
+            >
+              <Table columns={surveyColumns} dataSource={surveys} />
+            </Panel>
+            {/* Modal for adding new survey */}
+          </Collapse>
+          <Modal
+            title="Add New Survey"
+            open={isSurveyModalVisible}
+            onOk={handleAddSurvey}
+            onCancel={handleCancelSurvey}
+          >
+            <Form form={formSurvey} layout="vertical">
+              <Form.Item
+                name="surveyorName"
+                label="Surveyor Name"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please enter the surveyor name",
+                  },
+                ]}
+              >
+                <Input />
+              </Form.Item>
+              <Form.Item
+                name="surveyorType"
+                label="Surveyor Type"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please enter the surveyor type",
+                  },
+                ]}
+              >
+                <Input />
+              </Form.Item>
+              <Form.Item
+                name="date"
+                label="Date"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please select the survey date",
+                  },
+                ]}
+              >
+                <DatePicker />
+              </Form.Item>
+              <Form.Item
+                name="phoneNo"
+                label="Phone No"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please enter the phone number",
+                  },
+                ]}
+              >
+                <Input />
+              </Form.Item>
+              <Form.Item name="remark" label="Remark">
+                <TextArea rows={3} />
+              </Form.Item>
+            </Form>
+          </Modal>
+        </Col>
+
+        <Col span={8}>
+          <Collapse defaultActiveKey={["photos"]}>
+            <Panel header="Photos" key="photos">
+              <Form layout="vertical">
+                <Form.Item label="Site Coordinates">
+                  <Upload
+                    disabled
+                    accept=".jpg,.png"
+                    action="/upload"
+                    onChange={(info) => handleUpload(info, "siteCoordinates")}
+                  >
+                    <Button icon={<UploadOutlined />}>Upload</Button>
+                  </Upload>
+                </Form.Item>
+                <Form.Item label="Site Location">
+                  <Upload
+                    accept=".jpg,.png"
+                    action="/upload"
+                    onChange={(info) => handleUpload(info, "siteLocation")}
+                  >
+                    <Button icon={<UploadOutlined />}>Upload</Button>
+                  </Upload>
+                </Form.Item>
+                <Form.Item label="Building Floor">
+                  <Upload
+                    accept=".jpg,.png"
+                    action="/upload"
+                    onChange={(info) => handleUpload(info, "buildingFloor")}
+                  >
+                    <Button icon={<UploadOutlined />}>Upload</Button>
+                  </Upload>
+                </Form.Item>
+              </Form>
+            </Panel>
+          </Collapse>
+        </Col>
+      </Row>
+    </div>
+  );
+};
+
+export default Overview;

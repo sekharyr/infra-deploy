@@ -1,0 +1,492 @@
+// "use client";
+
+// import React, { useState, useEffect, useRef } from "react";
+// import {
+//   Collapse,
+//   Table,
+//   Input,
+//   Button,
+//   Form,
+//   DatePicker,
+//   message,
+//   Popconfirm,
+//   Space,
+// } from "antd";
+// import {
+//   EditOutlined,
+//   DeleteOutlined,
+//   SaveOutlined,
+//   CloseOutlined,
+//   PlusOutlined,
+// } from "@ant-design/icons";
+// import type { ColumnsType } from "antd/es/table";
+// import dayjs from "dayjs";
+// import axios from "axios";
+
+// const { Panel } = Collapse;
+// const { TextArea } = Input;
+
+// interface Survey {
+//   key: number;
+//   surveyorName?: string;
+//   surveyorType?: string;
+//   date?: dayjs.Dayjs;
+//   phoneNo?: string;
+//   remark?: string;
+// }
+
+// interface SiteProps {
+//   site: {
+//     id: string;
+//     surveys?: Survey[];
+//   };
+// }
+
+// const EditableTable: React.FC<SiteProps> = ({ site }) => {
+//   const [form] = Form.useForm();
+//   const [surveys, setSurveys] = useState<Survey[]>([]);
+//   const [editingKey, setEditingKey] = useState<number | null>(null);
+//   const [isAdding, setIsAdding] = useState<boolean>(false);
+//   const [originalRow, setOriginalRow] = useState<Survey | null>(null);
+//   const [surveyEditing, setSurveyEditing] = useState(false);
+//   const [activeKey, setActiveKey] = useState<string[]>(["surveys"]);
+
+//   const newRowRef = useRef<any>(null);
+
+//   const isEditing = (record: Survey) => record.key === editingKey;
+
+//   // Set initial state from site prop
+//   useEffect(() => {
+//     if (site.surveys) {
+//       setSurveys(site.surveys);
+//       // formSiteInfo.setFieldsValue(siteInfo); // Initialize form fields
+//     }
+//   }, []);
+
+//   // Handle edit row
+//   const edit = (record: Survey, e: React.MouseEvent) => {
+//     e.stopPropagation(); // Prevent collapsible from closing
+//     form.setFieldsValue({
+//       ...record,
+//       date: record.date ? dayjs(record.date) : null,
+//     });
+//     setOriginalRow({ ...record }); // Store the original row for canceling
+//     setEditingKey(record.key);
+//     setIsAdding(false);
+//   };
+
+//   // Handle cancel row
+//   const cancel = (e: React.MouseEvent) => {
+//     e.stopPropagation(); // Prevent collapsible from closing
+//     if (isAdding) {
+//       // Remove the newly added row if it’s empty
+//       setSurveys((prev) => prev.filter((row) => row.key !== editingKey));
+//       setIsAdding(false);
+//     } else if (originalRow) {
+//       const newData = [...surveys];
+//       const index = newData.findIndex((item) => originalRow.key === item.key);
+//       if (index > -1) {
+//         newData.splice(index, 1, originalRow); // Revert to the original row
+//         setSurveys(newData);
+//       }
+//     }
+//     setEditingKey(null);
+//     setOriginalRow(null);
+//   };
+
+//   // Handle save row
+//   const saveRow = (row: Survey, e: React.MouseEvent) => {
+//     e.stopPropagation(); // Prevent collapsible from closing
+//     console.log(row);
+//     form
+//       .validateFields()
+//       .then((values) => {
+//         console.log(values);
+//         const newData = [...surveys];
+//         const index = newData.findIndex((item) => row.key === item.key);
+//         if (index > -1) {
+//           newData.splice(index, 1, {
+//             ...row,
+//             ...values,
+//             date: values.date ? values.date.format("YYYY-MM-DD") : undefined,
+//           });
+//           console.log("Inside saveRow");
+//           console.log(newData);
+//           setSurveys(newData);
+//         }
+//         setEditingKey(null);
+//         setOriginalRow(null);
+//         message.success("Saved successfully");
+//       })
+//       .catch(() => {
+//         message.error("Save failed");
+//       });
+//   };
+
+//   // Handle delete row
+//   const deleteRow = (key: number) => {
+//     setSurveys((prev) => prev.filter((item) => item.key !== key));
+//   };
+
+//   // Handle add new row
+//   const addNewRow = () => {
+//     setSurveys((prev) => [
+//       ...prev,
+//       {
+//         key: Date.now(),
+//         surveyorName: "",
+//         surveyorType: "",
+//         date: dayjs(),
+//         phoneNo: "",
+//         remark: "",
+//       },
+//     ]);
+//     setEditingKey(Date.now());
+//     setIsAdding(true);
+//     setTimeout(() => newRowRef.current?.focus(), 0); // Focus on the new row
+//   };
+
+//   // Add a new surveyor if the table is empty
+//   const addSurveyor = () => {
+//     addNewRow();
+//   };
+
+//   // Define columns for the table
+//   const columns: ColumnsType<Survey> = [
+//     {
+//       title: "Surveyor Name",
+//       dataIndex: "surveyorName",
+//       key: "surveyorName",
+//       render: (_, record) => (
+//         <Form.Item name="surveyorName" style={{ margin: 0 }}>
+//           <Input
+//             disabled={!isEditing(record)}
+//             placeholder="Surveyor Name"
+//             ref={
+//               isEditing(record) && editingKey === record.key ? newRowRef : null
+//             }
+//           />
+//         </Form.Item>
+//       ),
+//     },
+//     {
+//       title: "Surveyor Type",
+//       dataIndex: "surveyorType",
+//       key: "surveyorType",
+//       render: (_, record) => (
+//         <Form.Item name="surveyorType" style={{ margin: 0 }}>
+//           <Input disabled={!isEditing(record)} placeholder="Surveyor Type" />
+//         </Form.Item>
+//       ),
+//     },
+//     {
+//       title: "Date",
+//       dataIndex: "date",
+//       key: "date",
+//       render: (_, record) => (
+//         <Form.Item name="date" style={{ margin: 0 }}>
+//           <DatePicker disabled={!isEditing(record)} format="YYYY-MM-DD" />
+//         </Form.Item>
+//       ),
+//     },
+//     {
+//       title: "Phone No",
+//       dataIndex: "phoneNo",
+//       key: "phoneNo",
+//       render: (_, record) => (
+//         <Form.Item name="phoneNo" style={{ margin: 0 }}>
+//           <Input disabled={!isEditing(record)} placeholder="Phone No" />
+//         </Form.Item>
+//       ),
+//     },
+//     {
+//       title: "Remark",
+//       dataIndex: "remark",
+//       key: "remark",
+//       render: (_, record) => (
+//         <Form.Item name="remark" style={{ margin: 0 }}>
+//           <TextArea disabled={!isEditing(record)} placeholder="Remark" />
+//         </Form.Item>
+//       ),
+//     },
+//     {
+//       title: "Actions",
+//       key: "actions",
+//       render: (_, record) => {
+//         const editable = isEditing(record);
+//         return (
+//           <Space>
+//             {editable ? (
+//               <>
+//                 <Button
+//                   icon={<SaveOutlined />}
+//                   onClick={(e) => saveRow(record, e)}
+//                   style={{ marginRight: 8 }}
+//                 />
+//                 <Button icon={<CloseOutlined />} onClick={cancel} />
+//               </>
+//             ) : (
+//               <>
+//                 <Button
+//                   icon={<EditOutlined />}
+//                   onClick={(e) => edit(record, e)}
+//                   style={{ marginRight: 8 }}
+//                 />
+//                 <Popconfirm
+//                   title="Are you sure to delete this row?"
+//                   onConfirm={() => deleteRow(record.key)}
+//                 >
+//                   <Button icon={<DeleteOutlined />} />
+//                 </Popconfirm>
+//                 {record.key === surveys[surveys.length - 1]?.key && (
+//                   <Button icon={<PlusOutlined />} onClick={addNewRow} />
+//                 )}
+//               </>
+//             )}
+//           </Space>
+//         );
+//       },
+//     },
+//   ];
+
+//   // Save all changes in the panel header
+//   const saveAll = async (e: React.MouseEvent) => {
+//     e.stopPropagation();
+
+//     try {
+//       // Capture the most up-to-date state directly
+//       const updatedSurveys = [...surveys]; // Access the latest surveys state here
+//       console.log("heyyy");
+//       console.log(surveys);
+//       console.log(updatedSurveys);
+//       const response = await axios.patch(`/api/sites/${site.id}`, {
+//         surveys: updatedSurveys, // Use the up-to-date surveys
+//       });
+
+//       if (response.status === 200) {
+//         message.success(`Surveys updated successfully`);
+//       } else {
+//         message.error(`Failed to update Surveys`);
+//       }
+//     } catch (error) {
+//       message.error(`Failed to update Surveys.`);
+//     }
+//   };
+
+//   const handleCollapseChange = (key: string | string[]) => {
+//     setActiveKey(Array.isArray(key) ? key : [key]); // Update active panels
+//   };
+//   return (
+//     <Collapse activeKey={activeKey} onChange={handleCollapseChange}>
+//       <Panel
+//         header="Surveys"
+//         key="1"
+//         extra={
+//           activeKey.includes("surveys") && (
+//             <Button onClick={(e) => saveAll(e)}>Save</Button>
+//           )
+//         }
+//       >
+//         {surveys.length === 0 ? (
+//           <Button type="dashed" onClick={addSurveyor}>
+//             Add Surveyor
+//           </Button>
+//         ) : (
+//           <Table
+//             dataSource={surveys}
+//             columns={columns}
+//             rowKey="key"
+//             size="small"
+//             pagination={false}
+//           />
+//         )}
+//       </Panel>
+//     </Collapse>
+//   );
+// };
+
+// export default EditableTable;
+
+import React, { useState, useEffect } from "react";
+import { Collapse, Button, message } from "antd";
+import {
+  EditOutlined,
+  DeleteOutlined,
+  SaveOutlined,
+  CloseOutlined,
+  PlusOutlined,
+} from "@ant-design/icons";
+import EditableTable from "antd-editable-table";
+import axios from "axios";
+
+const { Panel } = Collapse;
+
+interface Survey {
+  key: number;
+  surveyorName?: string;
+  surveyorType?: string;
+  date?: string;
+  phoneNo?: string;
+  remark?: string;
+}
+
+interface SiteProps {
+  site: {
+    id: string;
+    surveys?: Survey[];
+  };
+}
+
+const EditableTableComponent: React.FC<SiteProps> = ({ site }) => {
+  const [dataSource, setDataSource] = useState<Survey[]>([]);
+  const [editingKey, setEditingKey] = useState<number | null>(null);
+  const [activeKey, setActiveKey] = useState<string[]>(["surveys"]);
+
+  useEffect(() => {
+    if (site.surveys) {
+      setDataSource(site.surveys);
+    }
+  }, [site.surveys]);
+
+  const handleSave = async () => {
+    try {
+      const response = await axios.patch(`/api/sites/${site.id}`, {
+        surveys: dataSource,
+      });
+      if (response.status === 200) {
+        message.success(`Surveys updated successfully`);
+      } else {
+        message.error(`Failed to update Surveys`);
+      }
+    } catch (error) {
+      message.error(`Failed to update Surveys.`);
+    }
+  };
+
+  const handleChange = (newData: Survey[]) => {
+    setDataSource(newData);
+  };
+
+  const handleEdit = (record: Survey) => {
+    setEditingKey(record.key);
+  };
+
+  const handleCancel = () => {
+    setEditingKey(null);
+  };
+
+  const handleDelete = (key: number) => {
+    setDataSource((prev) => prev.filter((item) => item.key !== key));
+  };
+
+  const handleAdd = () => {
+    const newKey = Date.now();
+    setDataSource((prev) => [
+      ...prev,
+      {
+        key: newKey,
+        surveyorName: "",
+        surveyorType: "",
+        date: "",
+        phoneNo: "",
+        remark: "",
+      },
+    ]);
+    setEditingKey(newKey);
+  };
+
+  const columns = [
+    {
+      title: "Surveyor Name",
+      dataIndex: "surveyorName",
+      editable: true,
+    },
+    {
+      title: "Surveyor Type",
+      dataIndex: "surveyorType",
+      editable: true,
+    },
+    {
+      title: "Date",
+      dataIndex: "date",
+      editable: true,
+    },
+    {
+      title: "Phone No",
+      dataIndex: "phoneNo",
+      editable: true,
+    },
+    {
+      title: "Remark",
+      dataIndex: "remark",
+      editable: true,
+    },
+    {
+      title: "Actions",
+      render: (_, record: Survey) => {
+        const editable = record.key === editingKey;
+        return (
+          <>
+            {editable ? (
+              <>
+                <Button
+                  icon={<SaveOutlined />}
+                  onClick={() => handleSave()}
+                  style={{ marginRight: 8 }}
+                />
+                <Button icon={<CloseOutlined />} onClick={handleCancel} />
+              </>
+            ) : (
+              <>
+                <Button
+                  icon={<EditOutlined />}
+                  onClick={() => handleEdit(record)}
+                  style={{ marginRight: 8 }}
+                />
+                <Button
+                  icon={<DeleteOutlined />}
+                  onClick={() => handleDelete(record.key)}
+                />
+              </>
+            )}
+          </>
+        );
+      },
+    },
+  ];
+
+  const handleCollapseChange = (key: string | string[]) => {
+    setActiveKey(Array.isArray(key) ? key : [key]);
+  };
+
+  return (
+    <Collapse accordion activeKey={activeKey} onChange={handleCollapseChange}>
+      <Panel header="Surveys" key="surveys">
+        <Button
+          icon={<PlusOutlined />}
+          onClick={handleAdd}
+          style={{ marginBottom: 16 }}
+        >
+          Add Surveyor
+        </Button>
+        <EditableTable
+          columns={columns}
+          dataSource={dataSource}
+          rowKey="key"
+          onChange={handleChange}
+          editable={true}
+        />
+        <Button
+          type="primary"
+          icon={<SaveOutlined />}
+          onClick={handleSave}
+          style={{ marginTop: 16 }}
+        >
+          Save All
+        </Button>
+      </Panel>
+    </Collapse>
+  );
+};
+
+export default EditableTableComponent;

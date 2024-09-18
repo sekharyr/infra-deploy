@@ -1,0 +1,918 @@
+{
+  "cover_page": {
+    "project_name": "{project_name}",
+    "site_id": "{site_id}",
+    "site_name": "{site_name}",
+    "region": "{region}",
+    "site_picture": "{picture}",
+    "surveyors": [
+      {
+        "surveyor": "SBC Name",
+        "name": "AName",
+        "survey_date": "5.8.2024",
+        "phone_no": "9916900500",
+        "remark": "Nothing here"
+      },
+      {
+        "surveyor": "RF Engineer",
+        "name": "BName",
+        "survey_date": "5.9.2024",
+        "phone_no": "9148734555",
+        "remark": "Nothing here1"
+      }
+    ]
+  },
+  "general_info": {
+    "basic_info": {
+      "sharing_site": "No",
+      "site_type": "Fiber POP",
+      "tower_type": "Greenfield",
+      "tower_height": "102 m",
+      "building_height": "",
+      "site_area": "",
+      "detailed_address": "جادو- بالقرب من مديرية أمن جادو",
+      "site_owner": "Albounya",
+      "latitude": "31.95567",
+      "longitude": "12.028522",
+      "city": "Jadu",
+      "village": "near city center",
+      "type_of_premesis": "Governmental"
+    },
+    "site_access": {
+      "24_hr": "other",
+      "site_region": "Western Mountain",
+      "site_ownership": "Albounya",
+      "need_key": "Yes",
+      "stair_width": "",
+      "door_size": "",
+      "contact_person": "Tawfeq Alsabre",
+      "phone_no": "912660242",
+      "lift_availability": "",
+      "access_road": "Available"
+    },
+    "explanation": "الكهرباء",
+    "photos": {
+      "site_coordinates": "site_coordinates.png",
+      "site_location": "site_location.png",
+      "building_floor": "",
+      "main_access_road": "access_road.png",
+      "access_in": "access_in.png",
+      "access_out": "access_out.png",
+      "tower1_location": "tower1.png",
+      "tower2_location": "tower2.png",
+      "construction_status": ""
+    },
+    "notes": {
+      "site_coordinates": "gps coordinate",
+      "site_location": "location",
+      "building_floor": "building floor",
+      "main_access_road": "access road",
+      "access_in": "access in",
+      "access_out": "out access",
+      "tower1_location": "tower1",
+      "tower2_location": "tower2",
+      "construction_status": "status"
+    }
+  },
+  "ip": {
+    "existing": {
+      "item": "1",
+      "intf_type": "SR",
+      "intf_speed": "10 Gbps",
+      "intf_qty": "1",
+      "size": "5",
+      "in_or_out": "Indoor",
+      "remarks": "10 Gbps For starters, upgrades are made on demand"
+    },
+    "new": {
+      "item": "1",
+      "intf_type": "SR",
+      "intf_speed": "10 Gbps",
+      "intf_qty": "1",
+      "size": "1",
+      "in_or_out": "Outdoor",
+      "remarks": "10 Gbps For starters, upgrades are made on demand"
+    },
+    "photo": "existing_ip_equip.png"
+  },
+  "wl": {
+    "propose_info": {
+      "equipmnet_type": " WiBAS G5 dual-BS",
+      "frequency": "28 GHz",
+      "cabinet_type": "MTS9514A",
+      "feeder_cable_type": {
+        "sector1": "fiber optic cable+ ETH Cable",
+        "sector2": "fiber optic cable+ ETH Cable",
+        "sector3": "fiber optic cable+ ETH Cable",
+        "sector4": "fiber optic cable+ ETH Cable"
+      },
+      "optic_cable_length": {
+        "sector1": "80",
+        "sector2": "80",
+        "sector3": "80",
+        "sector4": "80"
+      },
+      "eth_cable_length": {
+        "sector1": "80",
+        "sector2": "80",
+        "sector3": "80",
+        "sector4": "80"
+      },
+      "power_cable_length": {
+        "sector1": "80",
+        "sector2": "80",
+        "sector3": "80",
+        "sector4": "80"
+      }
+    },
+    "aux_materials": {
+      "main_grounding_bar": {
+        "existing_or_not": "Not",
+        "qty": "-",
+        "notes": "if not existing, Earthing is in tower"
+      },
+      "busbar_height": {
+        "existing_or_not": "-",
+        "qty": "-",
+        "notes": "-"
+      },
+      "existing_pole": {
+        "existing_or_not": "Not",
+        "qty": "Expected 8 Pole",
+        "notes": "Expected 8 Pole"
+      },
+      "outdoor_cable": {
+        "existing_or_not": "Not",
+        "qty": "-",
+        "notes": "-"
+      },
+      "indoor_cable": {
+        "existing_or_not": "Not",
+        "qty": "-",
+        "notes": "-"
+      }
+    },
+    "photos": {
+      "cabinet_position": "",
+      "cabinet_foundatoin": "cabinet_foundation.png",
+      "grounding_bar_on_tower": "",
+      "grounding_bar_for_cabinet": "grounding_bar_for_cabinet.png",
+      "grounding_bar_for_antenna": "",
+      "cable_tray_from_tower_to_equip": "cable_tray_from_tower_to_equip.png",
+      "grounding_cable_to_antenna": "",
+      "grounding_cable_to_feeder_cable": "",
+      "grounding_cable_to_cabinet": ""
+    },
+    "notes": {
+      "cabinet_position": "",
+      "cabinet_foundatoin": "",
+      "grounding_bar_on_tower": "",
+      "grounding_bar_for_cabinet": "",
+      "grounding_bar_for_antenna": "",
+      "cable_tray_from_tower_to_equip": "",
+      "grounding_cable_to_antenna": "",
+      "grounding_cable_to_feeder_cable": "",
+      "grounding_cable_to_cabinet": ""
+    }
+  },
+  "power": {
+    "site_config_type": "New",
+    "grid_power": "NO",
+    "ac_power_system": "N/A",
+    "ac_measurement": {
+      "vl1_n": "N/A",
+      "vl2-n": "N/A",
+      "vl3-n": "N/A",
+      "vn-g": "N/A"
+    },
+    "diesel_gen": "NO",
+    "grounding_sys_measurement": "N/A",
+    "power_design_type": "Model: MTS9514A",
+    "power_config": "(2 x 300Ah lithium battery) (backup time: 12H)",
+    "photos": {
+      "existing_ac_box": "existing_ac_box.png",
+      "existing_ac_box_open": "existing_ac_box_open.png",
+      "vn-g_measurement": "",
+      "vl1_n_measurement": "",
+      "vl2_n_measurement": "",
+      "vl3_n_measurement": "",
+      "new_ac_box_location": "",
+      "overview_from_ac_box_to_power_sys": "",
+      "new_power_battery_location": "",
+      "grounding_sys_manhole": "",
+      "grounding_sys_measurement": "",
+      "measurement_process": ""
+    },
+    "new_ps_cable_length": {
+      "ground_cable": {
+        "desc": "From New Rack to Grounding Bar",
+        "note": "",
+        "length": ""
+      },
+      "ac_power_cable": {
+        "desc": "From New Rack to AC box",
+        "note": "55m",
+        "length": ""
+      },
+      "dc_cable_router_to_dc": {
+        "desc": "From Router to DC Distributer",
+        "note": "",
+        "length": ""
+      },
+      "dc_cable_dc_to_tower": {
+        "desc": "From DC Distributer to Tower",
+        "note": "",
+        "length": ""
+      },
+      "ac_cb_capacity": {
+        "desc": "From Existing AC Panel",
+        "note": "N/A",
+        "length": ""
+      }
+    },
+    "existing_ac_box": {
+      "used_cb_in_ac_box": { "remark": "N/A", "value": "" },
+      "free_cb_in_ac_box": { "remark": "N/A", "value": "" },
+      "need_cb": { "remark": "N/A", "value": "" }
+    },
+    "photo_existing": {
+      "rectifier_closed": "",
+      "rectifier_open": "",
+      "battery": "",
+      "grounding_bar": "",
+      "dc_breaker": "",
+      "free_circuit_breaker": ""
+    },
+    "photo_diesel": { "dg1": "", "dg2": "", "spec": "" },
+    "dg_system_capacity": "",
+    "working_status": "",
+    "diesel_generatior_owner": "",
+    "note": ""
+  },
+  "rf": {
+    "antenna": [
+      {
+        "id": "1",
+        "sector": "1",
+        "ant_type": " WiBAS G5 dual-BS",
+        "ant_height": "37m",
+        "azimuth": "determined at design",
+        "mech_tilt": "determined at design",
+        "elec_tilt": "N/A",
+        "s_no": "Determined at installation",
+        "oper_freq": "determined at design",
+        "out_pow": "determined at design"
+      },
+      {
+        "id": "2",
+        "sector": "2",
+        "ant_type": " WiBAS G5 dual-BS",
+        "ant_height": "37m",
+        "azimuth": "determined at design",
+        "mech_tilt": "determined at design",
+        "elec_tilt": "N/A",
+        "s_no": "Determined at installation",
+        "oper_freq": "determined at design",
+        "out_pow": "determined at design"
+      },
+      {
+        "id": "3",
+        "sector": "3",
+        "ant_type": " WiBAS G5 dual-BS",
+        "ant_height": "34m",
+        "azimuth": "determined at design",
+        "mech_tilt": "determined at design",
+        "elec_tilt": "N/A",
+        "s_no": "Determined at installation",
+        "oper_freq": "determined at design",
+        "out_pow": "determined at design"
+      },
+      {
+        "id": "4",
+        "sector": "4",
+        "ant_type": " WiBAS G5 dual-BS",
+        "ant_height": "38m",
+        "azimuth": "determined at design",
+        "mech_tilt": "determined at design",
+        "elec_tilt": "N/A",
+        "s_no": "Determined at installation",
+        "oper_freq": "determined at design",
+        "out_pow": "determined at design"
+      }
+    ],
+    "photo_site_antenna": {
+      "sector1": "",
+      "sector2": "",
+      "sector3": "",
+      "sector4": "",
+      "sector1_pov": "",
+      "sector2_pov": "",
+      "sector3_pov": "",
+      "sector4_pov": "",
+      "sector1_pov_tow": "",
+      "sector2_pov_tow": "",
+      "sector3_pov_tow": "",
+      "sector4_pov_tow": ""
+    },
+    "photo_surrounding": {
+      "0_deg": "0_deg.png",
+      "30_deg": "30_deg.png",
+      "60_deg": "60_deg.png",
+      "90_deg": "",
+      "120_deg": "",
+      "150_deg": "",
+      "180_deg": "",
+      "210_deg": "",
+      "240_deg": "",
+      "270_deg": "",
+      "300_deg": "",
+      "330_deg": ""
+    }
+  },
+  "mw": {
+    "site_name": "N/A",
+    "far_end_site_name": "N/A",
+    "ant_height": "N/A",
+    "ant_azimuth": "N/A",
+    "freq_spots": "N/A",
+    "ant_diameter": "N/A",
+    "s_no": "N/A",
+    "odf_port_type_apc_upc": "",
+    "odf_port_type_sc_lc_fc": "",
+    "odf_fiber_type": "",
+    "qty_free_ports": "",
+    "distance_router_odf": "",
+    "photo": {
+      "odf_close": "",
+      "odf_open": "",
+      "cable_tray_to_sw_room": "",
+      "feeder_window_to_sw_room": "",
+      "path_for_fiber_root_cabinet_odf1": "",
+      "path_for_fiber_root_cabinet_odf2": ""
+    },
+    "position_new_antenna": [
+      {
+        "far_end_site_name": "",
+        "ant_height": "",
+        "ant_azimuth": "",
+        "ant_diameter": "",
+        "new_ant_space_availability": "",
+        "los_new_link": "",
+        "new_mw_pole": ""
+      }
+    ],
+    "photo_proposed": "",
+    "antenna_1": {
+      "far_end_site_name": "",
+      "height": "",
+      "obs_latitude": "",
+      "obs_longitude": "",
+      "height1": "",
+      "clutter_height": "",
+      "remark": ""
+    },
+    "antenna_1_photos": {
+      "photo_far_end": "",
+      "photo_obstacle": "",
+      "photo_path_profile": ""
+    },
+    "antenna_2": {
+      "far_end_site_name": "",
+      "height": "",
+      "obs_latitude": "",
+      "obs_longitude": "",
+      "height1": "",
+      "clutter_height": "",
+      "remark": ""
+    },
+    "antenna_2_photos": {
+      "photo_far_end": "",
+      "photo_obstacle": "",
+      "photo_path_profile": ""
+    },
+    "antenna_3": {
+      "far_end_site_name": "",
+      "height": "",
+      "obs_latitude": "",
+      "obs_longitude": "",
+      "height1": "",
+      "clutter_height": "",
+      "remark": ""
+    },
+    "antenna_3_photos": {
+      "photo_far_end": "",
+      "photo_obstacle": "",
+      "photo_path_profile": ""
+    },
+    "antenna_4": {
+      "far_end_site_name": "",
+      "height": "",
+      "obs_latitude": "",
+      "obs_longitude": "",
+      "height1": "",
+      "clutter_height": "",
+      "remark": ""
+    },
+    "antenna_4_photos": {
+      "photo_far_end": "",
+      "photo_obstacle": "",
+      "photo_path_profile": ""
+    }
+  },
+  "cw": {
+    "tower_type": "Greenfield",
+    "pole_available": "No",
+    "photo_basic": {
+      "site_panorama": "",
+      "tower_overview": "",
+      "tensile_wire_levels": ""
+    },
+    "photo_basic_notes": {
+      "site_panorama": "",
+      "tower_overview": "",
+      "tensile_wire_levels": ""
+    },
+    "photo_site_equip_outdoor": {
+      "new_bts": "",
+      "nav_light": "",
+      "lighting_rod": ""
+    },
+    "photo_site_equip_outdoor_notes": {
+      "new_bts": "",
+      "nav_light": "",
+      "lighting_rod": ""
+    },
+    "photo_tower_cw_adaption": {
+      "tower": "",
+      "tower_foundation": "",
+      "grounding_bar": "",
+      "damaged_parts": "",
+      "visual_insp": "",
+      "roof_isolated_or_not": "",
+      "base_of_concrete_tower": "",
+      "base_of_concrete_new_cabinet": "",
+      "inst_sol_tension_wire1": "",
+      "inst_sol_tension_wire2": "",
+      "inst_sol_tension_wire3": "",
+      "inst_sol_tension_wire4": ""
+    },
+    "photo_tower_cw_adaption_notes": {
+      "tower": "",
+      "tower_foundation": "",
+      "grounding_bar": "",
+      "damaged_parts": "",
+      "visual_insp": "",
+      "roof_isolated_or_not": "",
+      "base_of_concrete_tower": "",
+      "base_of_concrete_new_cabinet": "",
+      "inst_sol_tension_wire1": "",
+      "inst_sol_tension_wire2": "",
+      "inst_sol_tension_wire3": "",
+      "inst_sol_tension_wire4": ""
+    }
+  },
+  "cable_requirement": {
+    "indoor": {
+      "ac_power": {
+        "from_new_rack_to_ac_box": {
+          "cable_length": "",
+          "cable_tray_length_in": "",
+          "cable_tray_length_out": "",
+          "note": ""
+        }
+      },
+      "dc_power": {
+        "from_dc_to_sector1": {
+          "cable_length": "80",
+          "cable_tray_length_in": "",
+          "cable_tray_length_out": "",
+          "note": ""
+        },
+        "from_dc_to_sector2": {
+          "cable_length": "80",
+          "cable_tray_length_in": "",
+          "cable_tray_length_out": "",
+          "note": ""
+        },
+        "from_dc_to_sector3": {
+          "cable_length": "80",
+          "cable_tray_length_in": "",
+          "cable_tray_length_out": "",
+          "note": ""
+        },
+        "from_dc_to_sector4": {
+          "cable_length": "80",
+          "cable_tray_length_in": "",
+          "cable_tray_length_out": "",
+          "note": ""
+        },
+        "from_dc_to_mw1": {
+          "cable_length": "",
+          "cable_tray_length_in": "",
+          "cable_tray_length_out": "",
+          "note": ""
+        },
+        "from_dc_to_mw2": {
+          "cable_length": "",
+          "cable_tray_length_in": "",
+          "cable_tray_length_out": "",
+          "note": ""
+        },
+        "from_dc_to_mw3": {
+          "cable_length": "",
+          "cable_tray_length_in": "",
+          "cable_tray_length_out": "",
+          "note": ""
+        },
+        "from_dc_to_mw4": {
+          "cable_length": "",
+          "cable_tray_length_in": "",
+          "cable_tray_length_out": "",
+          "note": ""
+        },
+        "from_dc_to_new_router": {
+          "cable_length": "",
+          "cable_tray_length_in": "",
+          "cable_tray_length_out": "",
+          "note": ""
+        }
+      },
+      "of_cable": {
+        "from_new_router_to_sector1": {
+          "cable_length": "80",
+          "cable_tray_length_in": "",
+          "cable_tray_length_out": "",
+          "note": ""
+        },
+        "from_new_router_to_sector2": {
+          "cable_length": "80",
+          "cable_tray_length_in": "",
+          "cable_tray_length_out": "",
+          "note": ""
+        },
+        "from_new_router_to_sector3": {
+          "cable_length": "80",
+          "cable_tray_length_in": "",
+          "cable_tray_length_out": "",
+          "note": ""
+        },
+        "from_new_router_to_sector4": {
+          "cable_length": "80",
+          "cable_tray_length_in": "",
+          "cable_tray_length_out": "",
+          "note": ""
+        },
+        "from_new_router_to_mw1": {
+          "cable_length": "",
+          "cable_tray_length_in": "",
+          "cable_tray_length_out": "",
+          "note": ""
+        },
+        "from_new_router_to_mw2": {
+          "cable_length": "",
+          "cable_tray_length_in": "",
+          "cable_tray_length_out": "",
+          "note": ""
+        },
+        "from_new_router_to_mw3": {
+          "cable_length": "",
+          "cable_tray_length_in": "",
+          "cable_tray_length_out": "",
+          "note": ""
+        },
+        "from_new_router_to_mw4": {
+          "cable_length": "",
+          "cable_tray_length_in": "",
+          "cable_tray_length_out": "",
+          "note": ""
+        },
+        "from_ip_equip_to_new_router": {
+          "cable_length": "",
+          "cable_tray_length_in": "",
+          "cable_tray_length_out": "",
+          "note": ""
+        }
+      },
+      "eth_cable": {
+        "from_new_router_to_sector1": {
+          "cable_length": "80",
+          "cable_tray_length_in": "",
+          "cable_tray_length_out": "",
+          "note": ""
+        },
+        "from_new_router_to_sector2": {
+          "cable_length": "80",
+          "cable_tray_length_in": "",
+          "cable_tray_length_out": "",
+          "note": ""
+        },
+        "from_new_router_to_sector3": {
+          "cable_length": "80",
+          "cable_tray_length_in": "",
+          "cable_tray_length_out": "",
+          "note": ""
+        },
+        "from_new_router_to_sector4": {
+          "cable_length": "80",
+          "cable_tray_length_in": "",
+          "cable_tray_length_out": "",
+          "note": ""
+        }
+      },
+      "grounding_cables": {
+        "from_sector1_to_busbar": {
+          "cable_length": "",
+          "cable_tray_length_in": "",
+          "cable_tray_length_out": "",
+          "note": "If Grounding Bar not Existing Earthing is in the tower"
+        },
+        "from_sector2_to_busbar": {
+          "cable_length": "",
+          "cable_tray_length_in": "",
+          "cable_tray_length_out": "",
+          "note": "If Grounding Bar not Existing Earthing is in the tower"
+        },
+        "from_sector3_to_busbar": {
+          "cable_length": "",
+          "cable_tray_length_in": "",
+          "cable_tray_length_out": "",
+          "note": "If Grounding Bar not Existing Earthing is in the tower"
+        },
+        "from_sector4_to_busbar": {
+          "cable_length": "",
+          "cable_tray_length_in": "",
+          "cable_tray_length_out": "",
+          "note": "If Grounding Bar not Existing Earthing is in the tower"
+        },
+        "from_mw1_to_busbar": {
+          "cable_length": "",
+          "cable_tray_length_in": "",
+          "cable_tray_length_out": "",
+          "note": "If Grounding Bar not Existing Earthing is in the tower"
+        },
+        "from_mw2_to_busbar": {
+          "cable_length": "",
+          "cable_tray_length_in": "",
+          "cable_tray_length_out": "",
+          "note": "If Grounding Bar not Existing Earthing is in the tower"
+        },
+        "from_mw3_to_busbar": {
+          "cable_length": "",
+          "cable_tray_length_in": "",
+          "cable_tray_length_out": "",
+          "note": "If Grounding Bar not Existing Earthing is in the tower"
+        },
+        "from_mw4_to_busbar": {
+          "cable_length": "",
+          "cable_tray_length_in": "",
+          "cable_tray_length_out": "",
+          "note": "If Grounding Bar not Existing Earthing is in the tower"
+        },
+        "from_new_router_to_busbar": {
+          "cable_length": "",
+          "cable_tray_length_in": "",
+          "cable_tray_length_out": "",
+          "note": "If the installation is in the ALjeel rack, the grounding be in the rack."
+        }
+      },
+      "fibre_connector": {
+        "con_type_apc_upc": "",
+        "con_type_sc_lc_fc": "",
+        "qty": "",
+        "fiber_type": "",
+        "fiber_length": "",
+        "note": ""
+      }
+    },
+    "outdoor": {
+      "gnd_cable": {
+        "from_new_cabinet_to_grounding_bar": {
+          "cable_length": "15m",
+          "cable_tray_length_in": "",
+          "cable_tray_length_out": "",
+          "note": ""
+        }
+      },
+      "ac_power": {
+        "from_new_cabinet_to_ac_box": {
+          "cable_length": "",
+          "cable_tray_length_in": "",
+          "cable_tray_length_out": "",
+          "note": ""
+        }
+      },
+      "dc_power": {
+        "from_dc_to_sector1": {
+          "cable_length": "50",
+          "cable_tray_length_in": "",
+          "cable_tray_length_out": "",
+          "note": ""
+        },
+        "from_dc_to_sector2": {
+          "cable_length": "50",
+          "cable_tray_length_in": "",
+          "cable_tray_length_out": "",
+          "note": ""
+        },
+        "from_dc_to_sector3": {
+          "cable_length": "50",
+          "cable_tray_length_in": "",
+          "cable_tray_length_out": "",
+          "note": ""
+        },
+        "from_dc_to_sector4": {
+          "cable_length": "50",
+          "cable_tray_length_in": "",
+          "cable_tray_length_out": "",
+          "note": ""
+        },
+        "from_dc_to_mw1": {
+          "cable_length": "",
+          "cable_tray_length_in": "",
+          "cable_tray_length_out": "",
+          "note": ""
+        },
+        "from_dc_to_mw2": {
+          "cable_length": "",
+          "cable_tray_length_in": "",
+          "cable_tray_length_out": "",
+          "note": ""
+        },
+        "from_dc_to_mw3": {
+          "cable_length": "",
+          "cable_tray_length_in": "",
+          "cable_tray_length_out": "",
+          "note": ""
+        },
+        "from_dc_to_mw4": {
+          "cable_length": "",
+          "cable_tray_length_in": "",
+          "cable_tray_length_out": "",
+          "note": ""
+        },
+        "from_dc_to_new_router": {
+          "cable_length": "5",
+          "cable_tray_length_in": "",
+          "cable_tray_length_out": "",
+          "note": ""
+        },
+        "from_batt_to_cb": {
+          "cable_length": "4",
+          "cable_tray_length_in": "",
+          "cable_tray_length_out": "",
+          "note": ""
+        }
+      },
+      "of_cable": {
+        "from_new_router_to_sector1": {
+          "cable_length": "50",
+          "cable_tray_length_in": "",
+          "cable_tray_length_out": "",
+          "note": ""
+        },
+        "from_new_router_to_sector2": {
+          "cable_length": "50",
+          "cable_tray_length_in": "",
+          "cable_tray_length_out": "",
+          "note": ""
+        },
+        "from_new_router_to_sector3": {
+          "cable_length": "55",
+          "cable_tray_length_in": "",
+          "cable_tray_length_out": "",
+          "note": ""
+        },
+        "from_new_router_to_sector4": {
+          "cable_length": "55",
+          "cable_tray_length_in": "",
+          "cable_tray_length_out": "",
+          "note": ""
+        },
+        "from_new_router_to_mw1": {
+          "cable_length": "",
+          "cable_tray_length_in": "",
+          "cable_tray_length_out": "",
+          "note": ""
+        },
+        "from_new_router_to_mw2": {
+          "cable_length": "",
+          "cable_tray_length_in": "",
+          "cable_tray_length_out": "",
+          "note": ""
+        },
+        "from_new_router_to_mw3": {
+          "cable_length": "",
+          "cable_tray_length_in": "",
+          "cable_tray_length_out": "",
+          "note": ""
+        },
+        "from_new_router_to_mw4": {
+          "cable_length": "",
+          "cable_tray_length_in": "",
+          "cable_tray_length_out": "",
+          "note": ""
+        },
+        "from_ip_equip_to_new_router": {
+          "cable_length": "1200",
+          "cable_tray_length_in": "",
+          "cable_tray_length_out": "",
+          "note": ""
+        }
+      },
+      "eth_cable": {
+        "from_new_router_to_sector1": {
+          "cable_length": "50",
+          "cable_tray_length_in": "",
+          "cable_tray_length_out": "",
+          "note": ""
+        },
+        "from_new_router_to_sector2": {
+          "cable_length": "50",
+          "cable_tray_length_in": "",
+          "cable_tray_length_out": "",
+          "note": ""
+        },
+        "from_new_router_to_sector3": {
+          "cable_length": "55",
+          "cable_tray_length_in": "",
+          "cable_tray_length_out": "",
+          "note": ""
+        },
+        "from_new_router_to_sector4": {
+          "cable_length": "55",
+          "cable_tray_length_in": "",
+          "cable_tray_length_out": "",
+          "note": ""
+        }
+      },
+      "grounding_cables": {
+        "from_sector1_to_busbar": {
+          "cable_length": "3",
+          "cable_tray_length_in": "",
+          "cable_tray_length_out": "",
+          "note": ""
+        },
+        "from_sector2_to_busbar": {
+          "cable_length": "3",
+          "cable_tray_length_in": "",
+          "cable_tray_length_out": "",
+          "note": ""
+        },
+        "from_sector3_to_busbar": {
+          "cable_length": "5",
+          "cable_tray_length_in": "",
+          "cable_tray_length_out": "",
+          "note": ""
+        },
+        "from_sector4_to_busbar": {
+          "cable_length": "5",
+          "cable_tray_length_in": "",
+          "cable_tray_length_out": "",
+          "note": ""
+        },
+        "from_mw1_to_busbar": {
+          "cable_length": "",
+          "cable_tray_length_in": "",
+          "cable_tray_length_out": "",
+          "note": ""
+        },
+        "from_mw2_to_busbar": {
+          "cable_length": "",
+          "cable_tray_length_in": "",
+          "cable_tray_length_out": "",
+          "note": ""
+        },
+        "from_mw3_to_busbar": {
+          "cable_length": "",
+          "cable_tray_length_in": "",
+          "cable_tray_length_out": "",
+          "note": ""
+        },
+        "from_mw4_to_busbar": {
+          "cable_length": "",
+          "cable_tray_length_in": "",
+          "cable_tray_length_out": "",
+          "note": ""
+        },
+        "from_new_router_to_busbar": {
+          "cable_length": "N/A",
+          "cable_tray_length_in": "",
+          "cable_tray_length_out": "",
+          "note": ""
+        }
+      },
+      "fibre_connector": {
+        "con_type_apc_upc": "UPC",
+        "con_type_sc_lc_fc": "LC-LC",
+        "qty": "2",
+        "fiber_type": "MM",
+        "fiber_length": "1200",
+        "note": "كابينة خارجية"
+      }
+    }
+  },
+  "layout_drawing": {
+    "photo1": "layout_photo1.png",
+    "photo2": "layout_photo2.png"
+  }
+}
