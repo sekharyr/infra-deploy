@@ -1,9 +1,10 @@
 "use client";
-import { Button, Dropdown, Input, Modal } from "antd";
+import { Button, Dropdown, Input, Modal, message } from "antd";
 import {
   PlusCircleOutlined,
   CheckCircleOutlined,
   ProfileOutlined,
+  PartitionOutlined,
 } from "@ant-design/icons";
 import "../css/ProjectView.css";
 import NewCirleOutlined from "../icons/NewCircleOutlined";
@@ -17,32 +18,71 @@ import {
   ChevronUpIcon,
 } from "@radix-ui/react-icons";
 import CustomDropdown from "../components/CustomDropdown";
-import type { MenuProps } from 'antd';
+import type { MenuProps } from "antd";
+import axios from "axios";
+const { TextArea } = Input;
 
-const CreateButton = () => {
-  const [projectNames, setProjectNames] = useState(
-    projectOverviewDetails.projectNames.slice(0, 5)
+const CreateButton = ({ onProjectAdded }) => {
+  const [projectNames, setProjectNames] = useState<string[]>(
+    []
+    // projectOverviewDetails.projectNames.slice(0, 5)
   );
-  const [inputData, setInputData] = useState("");
+  const [projectName, setProjectName] = useState("");
+  const [projectDescription, setProjectDescription] = useState("");
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [showAddProject, setShowAddProject] = useState(false);
-  const [currentDropdownValue, setCurrentDropdownValue] = useState("Main")
+  const [currentDropdownValue, setCurrentDropdownValue] = useState("Main");
 
-  const onInputChange = (e) => {
-    setInputData(e.target.value);
+  const onProjectNameChange = (e: any) => {
+    setProjectName(e.target.value);
+  };
+  const onProjectDescriptionChange = (e: any) => {
+    setProjectDescription(e.target.value);
   };
 
-  const onAddProject = (e) => {
-    projectNames.splice(0, 0, inputData);
-    /*if (filterValue == "Recents") {
-          setProjectNames(projectNames.slice(0, 5));
-        } else {
-          setProjectNames(projectNames);
-        }*/
-    setProjectNames(projectNames);
-    setOpen(false);
+  const onAddProject = async () => {
+    if (!projectName || !projectDescription) {
+      message.error("Please fill in all fields!");
+      return;
+    }
+
+    setLoading(true); // Show loading spinner
+    try {
+      // API POST request to add the project
+      const response = await axios.post("/api/projects", {
+        name: projectName,
+        description: projectDescription,
+      });
+      onProjectAdded();
+
+      if (response.status === 201) {
+        message.success("Project added successfully!");
+        setProjectNames([projectName, ...projectNames]); // Add the new project to the list
+        setOpen(false); // Close the modal
+        setProjectName(""); // Reset form fields
+        setProjectDescription("");
+      } else {
+        message.error("Failed to add project");
+      }
+    } catch (error) {
+      console.error(error);
+      message.error("An error occurred. Please try again.");
+    } finally {
+      setLoading(false); // Stop loading spinner
+    }
   };
+
+  // const onAddProject = (e) => {
+  //   projectNames.splice(0, 0, projectName);
+  //   /*if (filterValue == "Recents") {
+  //         setProjectNames(projectNames.slice(0, 5));
+  //       } else {
+  //         setProjectNames(projectNames);
+  //       }*/
+  //   setProjectNames(projectNames);
+  //   setOpen(false);
+  // };
 
   const showModal = () => {
     setOpen(true);
@@ -65,9 +105,9 @@ const CreateButton = () => {
   const handleCancel = () => {
     setOpen(false);
   };
-  const items =[
+  const items = [
     {
-      key: "2",
+      key: "3",
       label: (
         <>
           <div className="cardLine cursor-pointer" onClick={showProjectModal}>
@@ -75,6 +115,15 @@ const CreateButton = () => {
             <p className="text-sm p-2 font-medium">Project</p>
           </div>
         </>
+      ),
+    },
+    {
+      key: "2",
+      label: (
+        <div className="cardLine cursor-pointer" onClick={showModal}>
+          <PartitionOutlined />
+          <p className="text-sm p-2 font-medium">Site</p>
+        </div>
       ),
     },
     {
@@ -87,7 +136,7 @@ const CreateButton = () => {
       ),
     },
   ];
-  const contributors: MenuProps['items']  = [
+  const contributors: MenuProps["items"] = [
     {
       key: "1",
       label: "Satyabrata Dash",
@@ -97,7 +146,7 @@ const CreateButton = () => {
       label: "Mahesh Gowda",
     },
   ];
-  const project_Names: MenuProps['items']  = [
+  const project_Names: MenuProps["items"] = [
     {
       key: "1",
       label: "Demo Project1",
@@ -120,7 +169,7 @@ const CreateButton = () => {
       <Modal
         open={open}
         title={showAddProject ? "Add Project" : "Add Task"}
-        onOk={handleOk}
+        // onOk={handleOk}
         onCancel={handleCancel}
         footer={[
           <Button key="back" onClick={handleCancel}>
@@ -138,13 +187,23 @@ const CreateButton = () => {
       >
         {showAddProject ? (
           <>
-            <p>Invite with email or by name</p>
+            {/* <p>Project Name</p> */}
             <div className="inviteModal mb-4">
               <Input
-                placeholder="Add project by name.."
-                onInput={onInputChange}
+                placeholder="Project Name"
+                onInput={onProjectNameChange}
                 style={{ width: "95%" }}
               />
+            </div>
+            {/* <p>Brief Description</p> */}
+            <div className="inviteModal mb-4">
+              <TextArea
+                className="border rounded-lg mb-5"
+                rows={7}
+                placeholder="Description"
+                onInput={onProjectDescriptionChange}
+                style={{ width: "95%" }}
+              ></TextArea>
             </div>
           </>
         ) : (
@@ -180,31 +239,31 @@ const CreateButton = () => {
                 </Select.Content>
               </Select.Portal>
         </Select.Root>*/}
-        <div className="dropdownGroup mb-5">
-        <select name="cars" id="cars">
-        <option value="volvo">Contributor Name</option>
-            <option value="volvo">Volvo</option>
-            <option value="saab">Saab</option>
-            <option value="mercedes">Mercedes</option>
-            <option value="audi">Audi</option>
-          </select>
-          <select name="cars" id="cars">
-          <option value="volvo">Project Name</option>
-            <option value="volvo">Volvo</option>
-            <option value="saab">Saab</option>
-            <option value="mercedes">Mercedes</option>
-            <option value="audi">Audi</option>
-          </select>
-    </div>
-    {/*<Dropdown menu={{ contributors }} placement="bottomLeft">
+            <div className="dropdownGroup mb-5">
+              <select name="cars" id="cars">
+                <option value="volvo">Contributor Name</option>
+                <option value="volvo">Volvo</option>
+                <option value="saab">Saab</option>
+                <option value="mercedes">Mercedes</option>
+                <option value="audi">Audi</option>
+              </select>
+              <select name="cars" id="cars">
+                <option value="volvo">Project Name</option>
+                <option value="volvo">Volvo</option>
+                <option value="saab">Saab</option>
+                <option value="mercedes">Mercedes</option>
+                <option value="audi">Audi</option>
+              </select>
+            </div>
+            {/*<Dropdown menu={{ contributors }} placement="bottomLeft">
         <Button>bottomLeft</Button>
 </Dropdown>*/}
             <textarea
               className="border rounded-lg mb-5"
-              rows="7"
-              cols="70"
+              rows={7}
+              cols={70}
               placeholder="Description"
-        ></textarea>
+            ></textarea>
           </div>
         )}
       </Modal>

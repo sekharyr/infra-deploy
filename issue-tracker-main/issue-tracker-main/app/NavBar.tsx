@@ -39,7 +39,7 @@ const NavLinks = () => {
 
   const links = [
     { label: "Dashboard", href: "/" },
-    { label: "ProjectView", href: "/projectView"},
+    { label: "Projects", href: "/projectView" },
     { label: "Inventory", href: "/issues/list" },
   ];
 

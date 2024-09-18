@@ -6,8 +6,8 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
-  url      = env("DATABASE_URL")
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
   relationMode = "prisma"
 }
 
@@ -55,6 +55,14 @@ model Session {
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
 model User {
   id             String    @id @default(cuid())
   name           String?
@@ -64,12 +72,128 @@ model User {
   accounts       Account[]
   sessions       Session[]
   assignedIssues Issue[]
+  projects       Project[] // Projects associated with the user
 }
 
-model VerificationToken {
-  identifier String
-  token      String   @unique
-  expires    DateTime
+model Site {
+  id        Int      @id @default(autoincrement())
+  siteId    String   @unique
+  siteName  String
+  region    String
+  photo     String?
+  project   Project  @relation(fields: [projectId], references: [id])
+  projectId Int
+  surveys   Survey[]
 
-  @@unique([identifier, token])
+  basicInfo   BasicInfo? @relation(fields: [basicInfoId], references: [id])
+  basicInfoId Int?       @unique
+
+  siteAccessInfo   SiteAccess? @relation(fields: [siteAccessInfoId], references: [id])
+  siteAccessInfoId Int?        @unique
+
+  sitePhotos SitePhoto[] // Relationship to multiple photos
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model BasicInfo {
+  id              Int      @id @default(autoincrement())
+  sharingSite     Boolean? // Yes or No
+  siteOwner       String?
+  siteType        String? // Type of the site (e.g., rooftop, ground-based)
+  latitude        Float?
+  longitude       Float?
+  towerType       String? // Type of tower (e.g., monopole, lattice)
+  towerHeight     Float? // Height of the tower in meters
+  city            String?
+  buildingHeight  Float? // Height of the building in meters
+  village         String?
+  siteArea        Float? // Area in square meters (m²)
+  typeOfPremises  String? // Type of premises (e.g., commercial, residential)
+  detailedAddress String? // Full address of the site
+  site            Site?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model SiteAccess {
+  id                   Int      @id @default(autoincrement())
+  is24hrs              Boolean? // 24-hour access, represented by true or false
+  contactPerson        String? // Name of the contact person for access
+  siteRegion           String? // The region of the site for access purposes
+  phoneNo              String? // Phone number of the contact person
+  siteOwnership        String? // Site ownership details
+  liftAvailability     Boolean? // Whether lift access is available (true/false)
+  needKey              Boolean? // Whether a key is needed (true/false)
+  accessRoad           String? // Details about the access road to the site
+  stairWidth           Float? // Width of the stairway in meters (optional)
+  doorSize             Float? // Size of the door in meters (optional)
+  possibleDifficulties String? // Description of any possible difficulties for access
+  site                 Site?
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+}
+
+// model SitePhoto {
+//   id                 Int     @id @default(autoincrement())
+//   siteCoordinates    String? // Photo of site coordinates
+//   siteLocation       String? // Photo of overall site location
+//   buildingFloor      String? // Photo of building floor
+//   mainAccessRoad     String? // Photo of main access road
+//   accessIn           String? // Photo showing access in
+//   accessOut          String? // Photo showing access out
+//   tower1Location     String? // Photo of tower 1 location
+//   tower2Location     String? // Photo of tower 2 location (if applicable)
+//   constructionStatus String? // Photo of construction status
+
+//   site   Site?   @relation(fields: [siteId], references: [siteId])
+//   siteId String? // Foreign key to the `Site` model
+
+//   createdAt DateTime @default(now())
+//   updatedAt DateTime @updatedAt
+// }
+
+model SitePhoto {
+  id    Int     @id @default(autoincrement())
+  label String? // Photo of site coordinates
+  name  String?
+  url   String? // Photo of overall site location
+  // buildingFloor      String? // Photo of building floor
+  // mainAccessRoad     String? // Photo of main access road
+  // accessIn           String? // Photo showing access in
+  // accessOut          String? // Photo showing access out
+  // tower1Location     String? // Photo of tower 1 location
+  // tower2Location     String? // Photo of tower 2 location (if applicable)
+  // constructionStatus String? // Photo of construction status
+
+  site   Site?   @relation(fields: [siteId], references: [siteId])
+  siteId String? // Foreign key to the `Site` model
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Survey {
+  surveyId     Int       @id @default(autoincrement())
+  surveyorName String?
+  surveyorType String?
+  date         DateTime?
+  phoneNo      String?
+  remark       String?
+  site         Site?     @relation(fields: [siteId], references: [siteId])
+  siteId       String?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+}
+
+model Project {
+  id          Int     @id @default(autoincrement())
+  name        String  @unique
+  description String?
+  sites       Site[]
+  users       User[] // Users associated with the project
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

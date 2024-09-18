@@ -1,4 +1,4 @@
-"use server";
+// "use server";
 import { Card, Table, Tag, Divider, Row, Col } from "antd";
 import { Avatar } from "@radix-ui/themes";
 import "../css/card.css";

@@ -1,101 +1,97 @@
 "use client";
-import { Button, Card, Row, Col, Input } from "antd";
+import { Button, Card, Row, Col, Input, message } from "antd";
+import { useState, useEffect } from "react";
 import { Avatar, Dialog } from "@radix-ui/themes";
 import Link from "next/link";
 import ListIconSVG from "../components/ListIconSVG";
 import "../css/card.css";
 import CustomDropdown from "../components/CustomDropdown";
-import { useState } from "react";
-import projectOverviewDetails from "../constants/TempPayloadsFolder/projectOverviewDetails";
 import PlusCircleOutlined from "../icons/PlusCircleOutlined";
 import { union, filter, orderBy } from "lodash";
-
-const ProjectCard = (props) => {
-  const [projectNames, setProjectNames] = useState(
-    projectOverviewDetails.projectNames.slice(0, 5)
-  );
-  const [inputData, setInputData] = useState("");
+import axios from "axios";
+const ProjectCard = ({ projects }) => {
+  // const [projects, setProjects] = useState([]);
+  // const [inputData, setInputData] = useState("");
   const [open, setOpen] = useState(false);
-  const [filterValue, setFilterValue] = useState("");
+  const [filterValue, setFilterValue] = useState("Recent");
+  // const [loading, setLoading] = useState(true);
+  // const [error, setError] = useState("");
 
-  const onInputChange = (e) => {
-    setInputData(e.target.value);
-  };
+  // Fetch projects on component mount
+  // useEffect(() => {
+  //   const fetchProjects = async () => {
+  //     try {
+  //       const response = await axios.get("/api/projects"); // Replace with your API endpoint
+  //       setProjects(response.data); // Assuming response.data.projects is an array
+  //     } catch (error) {
+  //       message.error("Failed to fetch projects. Please try again.");
+  //       setError("Failed to fetch projects");
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
 
-  const onAddProject = (e) => {
-    projectNames.splice(0, 0, inputData);
-    if (filterValue == "Recents") {
-      setProjectNames(projectNames.slice(0, 5));
-    } else {
-      setProjectNames(projectNames);
-    }
-    setOpen(false);
-  };
+  //   fetchProjects();
+  // }, []);
+  const filteredProjects =
+    filterValue === "All" ? projects : projects.slice(0, 5);
 
-  const projects = [];
-  for (let i = 0; i < projectNames.length; i++) {
-    /*if (i == 0) {
-      projects.push(
-        <Dialog.Root open={open} onOpenChange={setOpen}>
-          <Dialog.Trigger>
-            <div className="cardLine cursor-pointer">
-              <PlusCircleOutlined />
-              <p className="text-sm p-2 font-medium">Add Project</p>
-            </div>
-          </Dialog.Trigger>
-          <Dialog.Content>
-            <Dialog.Title>Add Project</Dialog.Title>
-            <Dialog.Description size="2" mb="4">
-              Invite with email or by name
-            </Dialog.Description>
-            <div className="inviteModal mb-4">
-              <Input
-                placeholder="Add project by name.."
-                onInput={onInputChange}
-                style={{ width: "80%" }}
-              />
-              <Button onClick={onAddProject}>Add</Button>
-            </div>
-          </Dialog.Content>
-        </Dialog.Root>
-      );
-    }*/
+  // const onInputChange = (e) => {
+  //   setInputData(e.target.value);
+  // };
 
-    projects.push(
-      <Col className="cardLine" span={12}>
-        <ListIconSVG />
-        <Link
-          href={{
-            pathname: `/projectView/${projectNames[i]}`,
-            query: {
-              name: projectNames[i],
-            },
-          }}
-        >
-          <p className="projectName">{projectNames[i]}</p>
-        </Link>
-      </Col>
-    );
-  }
+  // const onAddProject = (e) => {
+  //   projectNames.splice(0, 0, inputData);
+  //   if (filterValue == "Recents") {
+  //     setProjectNames(projectNames.slice(0, 5));
+  //   } else {
+  //     setProjectNames(projectNames);
+  //   }
+  //   setOpen(false);
+  // };
+
+  // if (loading) {
+  //   return <p>Loading...</p>;
+  // }
+  // if (error) return <p>{error}</p>;
+
+  const projectElements = filteredProjects.map((project) => (
+    <Col className="cardLine" span={12} key={project.id}>
+      <ListIconSVG />
+      <Link
+        href={{
+          pathname: `/projectView/${project.id}`,
+          query: { name: project.id },
+        }}
+      >
+        <p className="projectName">{project.name}</p>
+      </Link>
+      {/* Optionally render sites if needed */}
+      {/* {project.sites.length > 0 && (
+        <div style={{ marginLeft: "20px" }}>
+          <h4>Sites:</h4>
+          <ul>
+            {project.sites.map((site) => (
+              <li key={site.id}>
+                <p>Site Name: {site.siteName}</p>
+                <p>Region: {site.region}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )} */}
+    </Col>
+  ));
+
   return (
     <div style={{ flexBasis: "97%", margin: "20px", height: "350px" }}>
       <Card
         title="Projects"
         extra={
           <CustomDropdown
-            defaultValue="Recents"
+            defaultValue="Recent"
             constName="projectShowOptions"
-            onSelect={(val) => {
-              if (val == "All") {
-                let tempprojectNames = union(
-                  projectNames,
-                  projectOverviewDetails.projectNames
-                );
-                console.log(tempprojectNames);
-                setProjectNames(tempprojectNames);
-              } else {
-                setProjectNames(projectNames.slice(0, 5));
-              }
+            onSelect={(val: any) => {
               setFilterValue(val);
             }}
           />
@@ -103,7 +99,7 @@ const ProjectCard = (props) => {
         bordered={false}
         style={{ height: "100%" }}
       >
-        <Row gutter={[16, 24]}>{projects}</Row>
+        <Row gutter={[16, 24]}>{projectElements}</Row>
       </Card>
     </div>
   );

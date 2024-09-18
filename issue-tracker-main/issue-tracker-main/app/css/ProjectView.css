@@ -39,3 +39,12 @@
     display: flex;
     justify-content: space-evenly;
 }
+.scrollable-list {
+  max-height: 400px; /* Adjust as needed */
+  overflow-y: auto; /* Vertical scrollbar */
+}
+.card-content {
+  max-height: 200px; /* Adjust the height based on your needs */
+  overflow-y: auto; /* Add a vertical scroll bar if content overflows */
+  padding-right: 8px; /* Optional: Add padding to prevent content from touching the scrollbar */
+}
