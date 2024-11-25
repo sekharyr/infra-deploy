@@ -1,155 +1,121 @@
-"use client";
-import React from "react";
-import {
-  Descriptions,
-  Card,
-  Input,
-  Avatar,
-  Tabs,
-  Button,
-  Dropdown,
-  Space,
-  Tag,
-  DatePicker
-} from "antd";
-import type { DescriptionsProps } from "antd";
-import { useState } from "react";
+import React, { useState } from "react";
+import { Card, Input, Avatar, Tabs, Button, Select } from "antd";
 import FileAttachmentSection from "@/app/components/FileAttachmentSection";
-import { DownOutlined } from "@ant-design/icons";
-import type { MenuProps } from "antd";
+import { CheckCircleOutlined } from "@ant-design/icons";
 import PriorityType from "@/app/constants/PriorityType";
-import dayjs from 'dayjs';
+import IPPartSurvey from "@/app/forms/IPPartSurvey";
+import TaskDetailsCard from "@/app/forms/TaskDetailsCard";
+import AttachmentCard from "@/app/components/AttachmentCard";
+import AuxMaterials from "@/app/forms/AuxMaterials";
 
-const dateFormat = 'YYYY-MM-DD';
-const TaskDetails = (props) => {
+const TaskDetails = ({ task, projectName }) => {
   const filesFromReviewer = ["task.pdf", "overview.pdf"];
   const filesFromAssigner = ["taskDetails.pdf"];
-  const itemsTask: MenuProps["items"] = [
-    {
-      key: "1",
-      label: "Task1",
-    },
-    {
-      key: "2",
-      label: "Task2",
-    },
-  ];
-  const { task } = props;
-  console.log("task is::",task);
-  const priorityKey = Object.keys(PriorityType).find(key => PriorityType[key]["STATUS"].toLowerCase() === task.priority.toLowerCase());
+  const priorityKey = Object.keys(PriorityType).find(
+    (key) =>
+      PriorityType[key]["STATUS"].toLowerCase() === task.priority.toLowerCase()
+  );
   const priority = priorityKey && PriorityType[priorityKey];
-  console.log("Priority is::",priority)
   const [isClickedOnComment, setIsClickedOnComment] = useState(false);
-  const showButton = () => {
-    setIsClickedOnComment(true);
+  const [selectedCategory, setSelectedCategory] = useState(""); // Track selected category
+  const [comments, setComments] = useState([]); // To store comments
+
+  const handleCategoryChange = (value) => setSelectedCategory(value);
+
+  const handleAddComment = (comment) => {
+    setComments((prevComments) => [...prevComments, comment]);
   };
-  const onDateChange = (date, dateString) => {
-    console.log(date, dateString);
+
+  const renderForm = () => {
+    switch (selectedCategory) {
+      case "ip_existing_equipment":
+      case "ip_new_equipment":
+        return <IPPartSurvey />;
+      case "wl_propose_information":
+      case "wl_auxiliary_materials":
+        return <AuxMaterials />;
+      default:
+        return null;
+    }
   };
-  const items: DescriptionsProps["items"] = [
+
+  const items = [
     {
       key: "1",
-      label: "Assignee",
-      children:
-        (
-          <p>
-            <Avatar className="basic-avatar mr-2 ml-2" size={36}>
-              {task.avatar}
-            </Avatar>
-            {task.assignee}
-          </p>
-        ) || "",
-    },
-    {
-      key: "2",
-      label: "Due Date",
-      children: <DatePicker defaultValue={dayjs('2019-09-03', dateFormat)} onChange={onDateChange} /> || "",
-    },
-    {
-      key: "3",
-      label: "Projects",
+      label: "Details",
       children: (
         <div>
-          <p>{props.projectName || ""}</p>
-          <select name="cars" id="cars">
-            <option value="volvo">Volvo</option>
-            <option value="saab">Saab</option>
-            <option value="mercedes">Mercedes</option>
-            <option value="audi">Audi</option>
-          </select>
+          {/* Task Details */}
+          <TaskDetailsCard
+            task={task}
+            onDateChange={(date, dateString) => console.log(date, dateString)}
+            handleCategoryChange={handleCategoryChange}
+          />
+          <Card className="description-card scrollable">
+            <Input.TextArea
+              rows={4}
+              placeholder="What's this task about?"
+              defaultValue={task.description}
+            />
+          </Card>
+
+          {/* Comments & Activities Tabs */}
+          <Card className="comments-tabs-card scrollable">
+            <Tabs defaultActiveKey="1">
+              <Tabs.TabPane tab="Comments" key="1">
+                {/* Display all comments */}
+                {comments.length > 0 ? (
+                  comments.map((comment, index) => (
+                    <div key={index}>{comment}</div>
+                  ))
+                ) : (
+                  <div>No comments yet</div>
+                )}
+                <Card className="comment-input-card">
+                  <Input.TextArea
+                    rows={3}
+                    placeholder="Add a comment"
+                    onClick={() => setIsClickedOnComment(true)}
+                  />
+                  {isClickedOnComment && (
+                    <Button
+                      type="primary"
+                      onClick={() => {
+                        handleAddComment("New Comment");
+                        setIsClickedOnComment(false); // Reset the input
+                      }}
+                    >
+                      Comment
+                    </Button>
+                  )}
+                </Card>
+              </Tabs.TabPane>
+              <Tabs.TabPane tab="Activities" key="2">
+                <div>See activities here</div>
+                {/* You can replace this with dynamic content */}
+              </Tabs.TabPane>
+            </Tabs>
+          </Card>
         </div>
       ),
     },
     {
-      key: "4",
-      label: "Priority",
-      children: <Tag color={priority.COLOR || "black"}>{priority.STATUS || ""}</Tag>,
+      key: "2",
+      label: "Work",
+      children: (
+        <div>
+          {/* Render the dynamic form in the Work tab */}
+          <Card className="form-card scrollable">{renderForm()}</Card>
+          {/* Attachments in Work tab */}
+          <AttachmentCard />
+        </div>
+      ),
     },
   ];
+
   return (
     <div className="task-details">
-      <div className="task-details-body">
-        <Descriptions
-          className="TaskDescriptions"
-          title={task.taskName}
-          column={1}
-          items={items}
-        />
-        <p className="mb-5 text-xs">Description</p>
-        <Card className="w-full h-32 cardLine mb-5">
-          <textarea
-            className="rounded-lg"
-            rows="4"
-            cols="90"
-            placeholder="What's this task about.?"
-          ></textarea>
-        </Card>
-        <p className="mb-5 text-xs">Attachments From Reviewer</p>
-        <FileAttachmentSection
-          showFooter={true}
-          attachedFiles={filesFromReviewer}
-        />
-        <p className="mb-5 text-xs">Attachments From Assigner</p>
-        <FileAttachmentSection
-          showFooter={true}
-          attachedFiles={filesFromAssigner}
-        />
-      </div>
-      <div className="commentsSection">
-        <Tabs
-          defaultActiveKey="1"
-          items={[
-            {
-              label: "Comments",
-              key: "1",
-              children: <div>See comments here</div>,
-            },
-            {
-              label: "Activities",
-              key: "2",
-              children: <div>See activities here</div>,
-            },
-          ]}
-        />
-        <div className="h-60"></div>
-      </div>
-      <div className="fixed-comments-section">
-        <Avatar className="basic-avatar mr-2 ml-2" size={40}>
-          SD
-        </Avatar>
-        <Card className="h-max comment-card mb-5 mt-5">
-          <textarea
-            onClick={showButton}
-            className="rounded-lg"
-            rows="3"
-            cols="90"
-            placeholder="Add a comment"
-          ></textarea>
-          {isClickedOnComment ? (
-            <Button className="float-right mt-5">Comment</Button>
-          ) : null}
-        </Card>
-      </div>
+      <Tabs defaultActiveKey="1" items={items} />
     </div>
   );
 };

@@ -1,19 +1,8 @@
 "use client";
 
-import {
-  Card,
-  Col,
-  Row,
-  Button,
-  Form,
-  Input,
-  Upload,
-  message,
-  Collapse,
-  Image,
-} from "antd";
+import { Button, Upload, message, Collapse, Image } from "antd";
 import { useState, useEffect } from "react";
-import { UploadOutlined, PlusOutlined } from "@ant-design/icons";
+import { PlusOutlined } from "@ant-design/icons";
 import SiteInfoCard from "./SiteInfoCard";
 import SiteBasicCard from "./SiteBasicCard";
 import SiteAccessCard from "./SiteAccessCard";
@@ -49,7 +38,6 @@ const Overview = ({ site }) => {
     const fetchPhotos = async () => {
       try {
         const response = await axios.get(`/api/sites/${site.id}`);
-        console.log(response.data.sitePhotos);
         setFileList(response.data.sitePhotos);
       } catch (error) {
         message.error("Failed to load surveys");
@@ -78,23 +66,21 @@ const Overview = ({ site }) => {
     setPreviewOpen(true);
   };
 
-  // Handle file removal (delete)
   const handleRemove = async (file: UploadFile) => {
     try {
-      console.log("I am here");
       const fileToDelete = fileList.find((f) => f.name === file.name);
 
       if (fileToDelete?.id) {
-        // Call API to delete the file using its ID
         const response = await axios.patch(`/api/sites/${site.id}`, {
           sitePhoto: {
             id: fileToDelete.id,
-            name: fileToDelete.name, // Pass the file ID to be deleted
+            name: fileToDelete.name,
             delete: true,
           },
         });
         if (response.status === 200 || response.status === 201) {
           message.success("File deleted successfully");
+          setFileList(fileList.filter((f) => f.name !== file.name));
         } else {
           message.error("Failed to delete file");
         }
@@ -103,7 +89,6 @@ const Overview = ({ site }) => {
       }
     } catch (error) {
       message.error(`Failed to delete file. ${error}`);
-      console.log(`Failed to delete file. ${error}`);
     }
   };
 
@@ -117,12 +102,9 @@ const Overview = ({ site }) => {
     setFileList(fileList);
 
     if (file.status === "done") {
-      // File uploaded successfully
-      message.success(`${file.name} file uploaded successfullyyy`);
+      message.success(`${file.name} file uploaded successfully`);
 
-      // Store metadata
       try {
-        console.log("I am here");
         const response = await axios.patch(`/api/sites/${site.id}`, {
           sitePhoto: {
             name: file.name,
@@ -137,7 +119,6 @@ const Overview = ({ site }) => {
         }
       } catch (error) {
         message.error(`Failed to store file metadata. ${error}`);
-        console.log(`Failed to store file metadata. ${error}`);
       }
     } else if (file.status === "error") {
       message.error(`${file.name} file upload failed.`);
@@ -151,81 +132,51 @@ const Overview = ({ site }) => {
     </button>
   );
 
-  // const uploadUrl = `/sites/${site.id}/upload`; // Dynamic URL based on site ID
-
   return (
-    <div>
-      <Row gutter={24}>
-        {/* Left Column - 75% */}
-        <Col span={18}>
-          <SiteInfoCard site={site} />
-          <SiteBasicCard site={site} />
-          <SiteAccessCard site={site} />
-          <EditableSurveyTable site={site} />
-        </Col>
+    <div style={{ display: "flex", gap: "20px" }}>
+      {/* Left Column - Main Content */}
+      <div
+        style={{
+          flex: 3,
+          display: "flex",
+          flexDirection: "column",
+          gap: "20px",
+        }}
+      >
+        <SiteInfoCard site={site} />
+        <SiteBasicCard site={site} />
+        <SiteAccessCard site={site} />
+        <EditableSurveyTable site={site} />
+      </div>
 
-        {/* Right Column - 25% */}
-        <Col span={6}>
-          <Collapse defaultActiveKey={["photos"]}>
-            <Panel header="Photos" key="photos">
-              {/* <Form layout="vertical">
-                <Form.Item label="Site Coordinates">
-                  <Upload
-                    accept=".jpg,.png"
-                    action={uploadUrl}
-                    onChange={(info) => handleUpload(info, "siteCoordinates")}
-                    showUploadList={false} // Optional: hide the default upload list
-                  >
-                    <Button icon={<UploadOutlined />}>Upload</Button>
-                  </Upload>
-                </Form.Item>
-                <Form.Item label="Site Location">
-                  <Upload
-                    accept=".jpg,.png"
-                    action={uploadUrl}
-                    onChange={(info) => handleUpload(info, "siteLocation")}
-                    showUploadList={false} // Optional: hide the default upload list
-                  >
-                    <Button icon={<UploadOutlined />}>Upload</Button>
-                  </Upload>
-                </Form.Item>
-                <Form.Item label="Building Floor">
-                  <Upload
-                    accept=".jpg,.png"
-                    action={uploadUrl}
-                    onChange={(info) => handleUpload(info, "buildingFloor")}
-                    showUploadList={false} // Optional: hide the default upload list
-                  >
-                    <Button icon={<UploadOutlined />}>Upload</Button>
-                  </Upload>
-                </Form.Item>
-              </Form> */}
-              <Upload
-                action={`http://localhost:3000/api/sites/${site.id}/upload`}
-                listType="picture-card"
-                fileList={fileList}
-                onPreview={handlePreview}
-                onChange={handleChange}
-                onRemove={handleRemove}
-              >
-                {fileList.length >= 8 ? null : uploadButton}
-              </Upload>
-              {previewImage && (
-                <Image
-                  wrapperStyle={{ display: "none" }}
-                  preview={{
-                    visible: previewOpen,
-                    onVisibleChange: (visible) => setPreviewOpen(visible),
-                    afterOpenChange: (visible) =>
-                      !visible && setPreviewImage(""),
-                  }}
-                  src={previewImage}
-                />
-              )}
-            </Panel>
-          </Collapse>
-        </Col>
-      </Row>
+      {/* Right Column - Photos */}
+      <div style={{ flex: 1 }}>
+        <Collapse defaultActiveKey={["photos"]}>
+          <Panel header="Photos" key="photos">
+            <Upload
+              action={`http://localhost:3000/api/sites/${site.id}/upload`}
+              listType="picture-card"
+              fileList={fileList}
+              onPreview={handlePreview}
+              onChange={handleChange}
+              onRemove={handleRemove}
+            >
+              {fileList.length >= 8 ? null : uploadButton}
+            </Upload>
+            {previewImage && (
+              <Image
+                wrapperStyle={{ display: "none" }}
+                preview={{
+                  visible: previewOpen,
+                  onVisibleChange: (visible) => setPreviewOpen(visible),
+                  afterOpenChange: (visible) => !visible && setPreviewImage(""),
+                }}
+                src={previewImage}
+              />
+            )}
+          </Panel>
+        </Collapse>
+      </div>
     </div>
   );
 };

@@ -1,0 +1,68 @@
+.ProjectView {
+    padding: 20px;
+    background-color: #f5f5f5;
+  }
+  
+  /* .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 20px;
+  } */
+  
+  .header h2 {
+    margin: 0;
+    font-size: 24px;
+    color: #333;
+  }
+  
+  .loading-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 300px;
+  }
+  
+  .CardView {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  .empty-state {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    color: #888;
+  }
+  
+  .error-message {
+    color: red;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .CardView .ant-card {
+    display: flex;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    border-radius: 8px;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .CardView .ant-card .ant-card-body {
+    padding: 20px;
+  }
+  
+  .ant-btn-primary {
+    background-color: #0073e6;
+    border: none;
+  }
+  
+  .ant-btn-primary:hover {
+    background-color: #005bb5;
+  }
+  

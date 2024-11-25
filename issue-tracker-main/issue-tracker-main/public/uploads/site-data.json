@@ -1,10 +1,10 @@
 {
   "cover_page": {
-    "project_name": "Aljeel",
-    "site_id": "S0002",
-    "site_name": "TestSite",
-    "region": "Test Region",
-    "site_picture": "C:\\Users\\Sekhar Yadavali-1503\\Desktop\\SiteManager\\infra-deploy\\issue-tracker-main\\issue-tracker-main\\public\\uploads\\0_deg.png",
+    "project_name": "project1",
+    "site_id": "project1",
+    "site_name": "this is first project",
+    "region": "test",
+    "site_picture": "C:\\Users\\Sekhar Yadavali-1503\\Desktop\\SiteManager\\infra-deploy\\issue-tracker-main\\issue-tracker-main\\public\\uploads\\sign.jpg",
     "surveyors": [
       {
         "surveyor": "SBC Name",

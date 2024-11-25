@@ -1,6 +1,6 @@
 .overview-section {
   display: flex;
-  height: 100vh;
+  /* height: 100vh; */
 }
 
 .overview-right-section {

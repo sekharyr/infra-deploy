@@ -1,12 +1,10 @@
 "use client";
-import { Row, Card, Col, Button, Input, Modal, message } from "antd";
-import { Avatar } from "@radix-ui/themes";
-import { PlusCircleOutlined } from "@ant-design/icons";
-import "../css/ProjectView.css";
+import { Card, Input, Table, Button, Pagination, Modal, message } from "antd";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import Link from "next/link"; // Assuming you are using Next.js for navigation
-const { TextArea } = Input;
+import { PlusCircleOutlined } from "@ant-design/icons";
+import Link from "next/link";
+import "../css/ProjectView.css";
 
 const SiteCard = ({ projectId }) => {
   const [siteId, setSiteId] = useState("");
@@ -17,6 +15,8 @@ const SiteCard = ({ projectId }) => {
   const [sites, setSites] = useState<any[]>([]); // Store fetched sites
   const [searchText, setSearchText] = useState(""); // State for search text
   const [filteredSites, setFilteredSites] = useState<any[]>([]); // State for filtered sites
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(15);
 
   // Fetch all sites on component mount
   useEffect(() => {
@@ -101,72 +101,90 @@ const SiteCard = ({ projectId }) => {
     setOpen(false); // Close the modal
   };
 
+  // Get current page's sites
+  const paginatedSites = filteredSites.slice(
+    (currentPage - 1) * pageSize,
+    currentPage * pageSize
+  );
+
+  // Handle page change
+  const handlePageChange = (page, pageSize) => {
+    setCurrentPage(page);
+    setPageSize(pageSize);
+  };
+
+  // Define columns for the table
+  const columns = [
+    {
+      title: "Site Name",
+      dataIndex: "siteName",
+      key: "siteName",
+      render: (text, site) => (
+        <Link
+          href={{
+            pathname: `/siteView/${site.id}`,
+            query: { name: site.siteName },
+          }}
+        >
+          {site.siteName}
+        </Link>
+      ),
+    },
+    {
+      title: "Site Id",
+      dataIndex: "siteId",
+      key: "siteId",
+    },
+    {
+      title: "Region",
+      dataIndex: "region",
+      key: "region",
+    },
+  ];
+
   return (
-    <div>
-      <Card
-        title={<p className="text-xl mb-5 mt-3 font-medium">Sites</p>}
-        extra={
-          <Button
-            type="primary"
-            onClick={showModal}
-            icon={<PlusCircleOutlined />}
-          >
-            Add Site
-          </Button>
-        }
-        style={{ width: "100%", maxWidth: 800 }}
-      >
+    <Card
+      title={
+        <Button
+          type="primary"
+          onClick={showModal}
+          icon={<PlusCircleOutlined />}
+        >
+          Add Site
+        </Button>
+      }
+      loading={loading}
+      extra={
         <Input
           placeholder="Search sites"
           value={searchText}
           onChange={(e) => setSearchText(e.target.value)}
-          style={{ marginBottom: 16 }}
         />
-        <div className="card-content">
-          <Row gutter={[16, 24]}>
-            {filteredSites.length ? (
-              filteredSites.map((site) => (
-                <Col className="gutter-row" span={8} key={site.siteId}>
-                  <Link
-                    href={{
-                      pathname: `/siteView/${site.id}`,
-                      query: { name: site.siteName },
-                    }}
-                  >
-                    {/* <Link href={`/siteView/${site.id} pathHref`} > */}
-                    <div className="project-roles">
-                      <Avatar
-                        radius="full"
-                        fallback={site.siteName.substring(0, 2)}
-                      />
-                      <div
-                        style={{
-                          display: "flex",
-                          flexDirection: "column",
-                          marginLeft: "2px",
-                        }}
-                      >
-                        <p className="text-sm font-medium">{site.siteName}</p>
-                        <p className="text-xs font-light">{site.siteId}</p>
-                      </div>
-                    </div>
-                  </Link>
-                </Col>
-              ))
-            ) : (
-              <Col span={24}>
-                <p>No sites found</p>
-              </Col>
-            )}
-          </Row>
-        </div>
-      </Card>
-
-      {/* Modal for Adding Site */}
+      }
+      bordered={false}
+      className="full-height-card"
+    >
+      <Table
+        dataSource={paginatedSites}
+        columns={columns}
+        pagination={false}
+        rowKey="siteId"
+        size="small"
+      />
+      <div className="pagination-container" style={{ marginTop: 16 }}>
+        <Pagination
+          current={currentPage}
+          pageSize={pageSize}
+          total={filteredSites.length}
+          onChange={handlePageChange}
+          showSizeChanger
+          pageSizeOptions={["5", "10", "15"]}
+        />
+      </div>
       <Modal
-        open={open} // Controls visibility of modal
+        open={open}
         title="Add Site"
-        onCancel={handleCancel} // Cancel button handler
+        onCancel={handleCancel}
         footer={[
           <Button key="back" onClick={handleCancel}>
             Cancel
@@ -184,7 +202,7 @@ const SiteCard = ({ projectId }) => {
         <div className="inviteModal mb-4">
           <Input
             placeholder="Site Id"
-            value={siteId} // Controlled input
+            value={siteId}
             onChange={onSiteIdChange}
             style={{ width: "95%" }}
           />
@@ -192,7 +210,7 @@ const SiteCard = ({ projectId }) => {
         <div className="inviteModal mb-4">
           <Input
             placeholder="Site Name"
-            value={siteName} // Controlled input
+            value={siteName}
             onChange={onSiteNameChange}
             style={{ width: "95%" }}
           />
@@ -200,13 +218,13 @@ const SiteCard = ({ projectId }) => {
         <div className="inviteModal mb-4">
           <Input
             placeholder="Site Region"
-            value={region} // Controlled input
+            value={region}
             onChange={onRegionChange}
             style={{ width: "95%" }}
           />
         </div>
       </Modal>
-    </div>
+    </Card>
   );
 };
 

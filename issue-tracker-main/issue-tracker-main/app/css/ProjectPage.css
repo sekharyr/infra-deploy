@@ -42,12 +42,12 @@
 
 .ProjectPageDetails{
     display: flex;
+    height: 100%;
     .ant-tabs-nav-list{
         margin-left: 1.8rem;
     }
-    .ant-tabs-content-holder{
-        margin-left: -2rem;
-    }
+    
+
     .ListIconSvg{
         height: 50px;
         width: 50px;

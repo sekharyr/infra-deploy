@@ -1,12 +1,12 @@
 import "@radix-ui/themes/styles.css";
 import "./theme-config.css";
+import { AntdRegistry } from "@ant-design/nextjs-registry";
 import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { Container, Theme, ThemePanel } from "@radix-ui/themes";
-import NavBar from "./NavBar";
 import AuthProvider from "./auth/Provider";
 import QueryClientProvider from "./QueryClientProvider";
+import ClientLayout from "./ClientLayout";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -25,17 +25,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.variable}>
-        <QueryClientProvider>
-          <AuthProvider>
-            <Theme accentColor="violet">
-              <NavBar />
-              <main className="p-3">
-                <Container>{children}</Container>
-              </main>
-            </Theme>
-          </AuthProvider>
-        </QueryClientProvider>
+      <body className={inter.variable} style={{ margin: 0, padding: 0 }}>
+        {/* <QueryClientProvider>
+          <AuthProvider> */}
+        <AntdRegistry>
+          <ClientLayout>{children}</ClientLayout>
+        </AntdRegistry>
+        {/* </AuthProvider>
+        </QueryClientProvider> */}
       </body>
     </html>
   );

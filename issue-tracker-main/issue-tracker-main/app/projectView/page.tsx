@@ -1,15 +1,10 @@
 "use client";
-import ProjectCard from "./projectcard";
+import ProjectCard from "./ProjectCard"; // Ensure correct casing for import
 import { useState, useEffect } from "react";
-import ContributorCard from "./contributorcard";
-import TaskCard from "./TaskCard";
-import { Button, Dropdown, message } from "antd";
-import { PlusCircleOutlined } from "@ant-design/icons";
-import "../css/ProjectView.css";
-import NewCirleOutlined from "../icons/NewCircleOutlined";
+import { Button, message, Spin, Space } from "antd";
 import CreateButton from "./CreateButton";
 import axios from "axios";
-import { update } from "lodash";
+import "../css/ProjectView.css";
 
 const ProjectView = () => {
   const [projects, setProjects] = useState([]);
@@ -17,24 +12,13 @@ const ProjectView = () => {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    const fetchProjects = async () => {
-      try {
-        const response = await axios.get("/api/projects"); // Replace with your API endpoint
-        setProjects(response.data); // Assuming response.data.projects is an array
-      } catch (error) {
-        message.error("Failed to fetch projects. Please try again.");
-        setError("Failed to fetch projects");
-      } finally {
-        setLoading(false);
-      }
-    };
     fetchProjects();
   }, []);
 
-  const updateProjects = async () => {
+  const fetchProjects = async () => {
     try {
       const response = await axios.get("/api/projects"); // Replace with your API endpoint
-      setProjects(response.data); // Assuming response.data.projects is an array
+      setProjects(response.data); // Assuming response.data is an array of projects
     } catch (error) {
       message.error("Failed to fetch projects. Please try again.");
       setError("Failed to fetch projects");
@@ -42,22 +26,38 @@ const ProjectView = () => {
       setLoading(false);
     }
   };
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+
+  const updateProjects = async () => {
+    setLoading(true);
+    await fetchProjects();
+  };
+
+  // if (loading) {
+  //   return (
+  //     <div className="loading-container">
+  //       <Spin size="large" tip="Loading projects..." />
+  //     </div>
+  //   );
+  // }
 
   if (error) {
-    return <div>{error}</div>;
+    return <div className="error-message">{error}</div>;
   }
+
   return (
-    <div className="ProjectView">
-      <CreateButton onProjectAdded={updateProjects} />
-      {/* <TaskCard /> */}
-      <div className="CardView">
-        <ProjectCard projects={projects} />
-        {/*<ContributorCard />*/}
-      </div>
-    </div>
+    // <div className="ProjectView">
+    //   {projects.length > 0 ? (
+    <ProjectCard projects={projects} loading={loading} />
+    // ) : (
+    //   <div className="empty-state">
+    //     <p>
+    //       No projects available. Click the button above to create a new
+    //       project.
+    //     </p>
+    //   </div>
+    // )}
+    // {/* </div> */}
+    // </div>
   );
 };
 

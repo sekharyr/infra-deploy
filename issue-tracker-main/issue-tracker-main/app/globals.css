@@ -1,3 +1,154 @@
+
+
+
+.ant-card-body {
+  flex: 1; /* This allows the body to expand and fill the remaining space */
+  overflow: auto;
+}
+
+.list-container {
+  flex-grow: 1;
+  overflow: auto; /* Makes the list scrollable */
+  padding: 0 16px; /* Optional padding for better spacing */
+}
+
+
+.full-height-card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.pagination-container {
+  padding: 16px;
+  display: flex;
+  justify-content: center;
+  background-color: #fff; /* Optional background for better separation */
+  border-top: 1px solid #f0f0f0; /* Optional border to separate pagination */
+}
+
+.letter-avatar {
+  background-color: #375252;
+  color: #fff
+}
+
+
+.bug-icon {
+  font-size: 24px; /* Adjust size as needed */
+  margin-right: 8px; /* Space between the icon and the text */
+  color: #f5f0ee; /* Customize the color */
+}
+.bug-icon-link {
+  display: inline-flex;
+  align-items: center;
+  color: white
+}
+
+.logo-text {
+  font-size: 18px; /* Adjust size as needed */
+  font-weight: bold;
+  color: #f5efef;
+}
+
+.header {
+  position: fixed;
+  z-index: 1000;
+  width: 100%;
+  background: #375252 !important; /* Light grey */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 0 16px;
+}
+
+.header-row {
+  height: 100%;
+}
+
+.trigger {
+  font-size: 18px;
+  margin-right: 16px;
+  cursor: pointer;
+}
+
+.search-col {
+  display: flex;
+  justify-content: center;
+}
+
+.search-input {
+  max-width: 400px;
+  width: 100%;
+}
+
+.layout {
+  height: 100vh;
+  background-color: #375252;
+}
+
+.main-layout {
+  margin-top: 64px;
+  background: #375252;
+}
+
+
+.sider{
+  background:#213838;
+
+  /* height: 100vh; */
+  overflow: auto;
+  /* height: calc(100vh - 64px); */
+}
+/* .ant-layout-sider{
+  background:#213838;
+  background-color: #305050;
+  /* height: 100vh; */
+  /* overflow: auto; */
+  /* height: calc(100vh - 64px); */
+
+.sider .ant-layout-sider-children {
+  background-color: #375252;
+}
+
+.sider {
+  background-color: #375252 !important; /* Light grey for the Menu inside the Sider */
+}
+
+.sider .ant-menu {
+  background-color: #375252
+}
+.sider .ant-menu-item {
+  background-color: #273a3a !important; /* Ensures menu items inherit the background */
+}
+
+.sider .ant-layout-sider-trigger {
+  background-color: #273a3a !important; /* Ensures menu items inherit the background */
+}
+
+
+
+.menu {
+  height: 100%;
+  border-right: 0;
+}
+
+.content-layout {
+  padding: 0 24px 24px;
+}
+
+.breadcrumb {
+  margin: 16px 0;
+}
+
+.content {
+  padding: "8px 16px";
+  /* lineHeight: "1.2";
+  padding: 24px; */
+  margin: 0;
+  min-height: 280px;
+  background: var(--ant-layout-background-color);
+  border-radius: 8px; /* Optional */
+}
+
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -145,3 +296,425 @@ button {
   background: #1677ff;
   box-shadow: 0 2px 0 rgba(5, 145, 255, 0.1);
 }
+
+.table-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: #f8f9fa; /* Light background for Excel-like feel */
+  padding: 16px;
+}
+
+.custom-table {
+  flex: 1;
+  overflow-y: auto;
+  border: 1px lightslategrey #d9d9d9;
+  border-radius: 4px;
+  background: #ffffff;
+}
+
+.custom-table .ant-table {
+  border: none; /* Removes default table borders */
+}
+
+.custom-table .ant-table-thead > tr > th.ant-table-cell {
+  border: 1px lightslategrey #d9d9d9; /* Makes cells look like a grid */
+  background: #ffffff;
+  padding: 0 8px; /* Remove padding */
+  text-align: left; /* Align text to the center for an Excel-like look */
+  height: 32px; /* Set row height */
+  line-height: 32px; /* Align text vertically in the cell */
+  font-weight: normal;
+  
+}
+
+.custom-table .ant-table-tbody > tr > td.ant-table-cell {
+  border: 1px lightslategrey #d9d9d9; /* Makes cells look like a grid */
+  background: #ffffff;
+  padding: 0 8px; /* Remove padding */
+  text-align: left; /* Align text to the center for an Excel-like look */
+  height: 32px; /* Set row height */
+  line-height: 32px; /* Align text vertically in the cell */
+}
+
+.custom-table .ant-table-row:hover > td.ant-table-cell {
+  background: #f1f1f1; /* Light gray background on hover for better focus */
+}
+
+.ant-pagination {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 16px;
+}
+
+.ant-table-cell {
+  transition: background 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.ant-table-row {
+  transition: background 0.3s ease; /* Smooth transition for row hover */
+}
+
+.table-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: #f8f9fa; /* Light background for Excel-like feel */
+  padding: 16px;
+}
+
+.custom-table {
+  flex: 1;
+  overflow-y: auto;
+  border: 1px lightslategray #d9d9d9;
+  border-radius: 4px;
+  background: #ffffff;
+  /* height: 100%; */
+}
+
+.custom-table .ant-table {
+  border: none; /* Removes default table borders */
+}
+
+.custom-table .ant-table-thead > tr > th.ant-table-cell {
+  border: 1px lightslategrey #d9d9d9; /* Makes cells look like a grid */
+  /* background: #ffffff; */
+  padding: 0 8px; /* Remove padding */
+  text-align: left; /* Align text to the center for an Excel-like look */
+  height: 32px; /* Set row height */
+  line-height: 32px; /* Align text vertically in the cell */
+  font-weight: normal; 
+  /* display: flex; */
+  box-sizing: border-box;
+}
+
+.custom-table .ant-table-tbody > tr > td.ant-table-cell {
+  border: 1px lightslategrey #d9d9d9; /* Makes cells look like a grid */
+  background: #ffffff;
+  padding: 0 8px; /* Remove padding */
+  text-align: left; /* Align text to the center for an Excel-like look */
+  height: 32px; /* Set row height */
+  line-height: 32px; /* Align text vertically in the cell */
+  transition: border-color 0.3s ease, background 0.3s ease; /* Smooth transition for hover effect */
+  box-sizing: border-box;
+}
+
+.custom-table .ant-table-row:hover > td.ant-table-cell {
+  background: #f1f1f1; /* Light gray background on hover for better focus */
+}
+
+.ant-pagination {
+  font-size: 8px; /* Reduces the font size */
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 16px;
+}
+
+.ant-pagination-item {
+  padding: 0 6px; /* Adjusts padding for smaller buttons */
+}
+
+.ant-pagination-item-active {
+  background-color: #f0f0f0; /* Optional: Change background for active page */
+}
+
+.resizer {
+  /* position: absolute;
+  right: 0;
+  bottom: 0; */
+  width: 10px;
+  height: 100%;
+  /* cursor: col-resize; */
+  
+  display: inline-block;
+}
+
+.hover-row:hover > td.ant-table-cell {
+  background: #f1f1f1; /* Highlight on hover for rows */
+}
+
+.table-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: #f8f9fa; /* Light background for Excel-like feel */
+  padding: 16px;
+}
+
+.custom-table {
+  flex: 1;
+  overflow: hidden; /* Prevent overflow from the container */
+  border: 1px lightslategray #d9d9d9;
+  border-radius: 4px;
+  background: #ffffff;
+}
+
+.custom-table .ant-table {
+  border: none; /* Removes default table borders */
+}
+
+.custom-table .ant-table-thead > tr > th.ant-table-cell {
+  border: 1px lightslategrey #d9d9d9; /* Makes cells look like a grid */
+  /* background: #ffffff; */
+  padding: 0 8px; /* Remove padding */
+  text-align: left; /* Align text to the center for an Excel-like look */
+  height: 32px; /* Set row height */
+  line-height: 32px; /* Align text vertically in the cell */
+  font-weight: normal; 
+  /* display: flex; */
+  box-sizing: border-box;
+}
+
+.custom-table .ant-table-tbody > tr > td.ant-table-cell {
+  border: 1px lightslategrey #d9d9d9; /* Makes cells look like a grid */
+  background: #ffffff;
+  padding: 0 8px; /* Remove padding */
+  text-align: left; /* Align text to the center for an Excel-like look */
+  height: 32px; /* Set row height */
+  line-height: 32px; /* Align text vertically in the cell */
+  transition: border-color 0.3s ease, background 0.3s ease; /* Smooth transition for hover effect */
+  box-sizing: border-box;
+}
+
+.custom-table .ant-table-row:hover > td.ant-table-cell {
+  background: #f1f1f1; /* Light gray background on hover for better focus */
+}
+
+.ant-pagination {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 16px;
+}
+
+.ant-table-cell {
+  transition: background 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.ant-table-row {
+  transition: background 0.3s ease; /* Smooth transition for row hover */
+}
+
+.resizer {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 10px; /* Width of the resize handle */
+  height: 100%;
+  cursor: col-resize;
+  z-index: 1; /* Ensure the resizer is above the cells */
+}
+
+.table-scroll-container {
+  flex: 1; /* Allow the container to grow */
+  overflow-y: auto; /* Enable vertical scrolling */
+  border: 1px solid #d9d9d9; /* Optional: border for the scrollable area */
+}
+
+.ant-avatar {
+  background: #375252;
+}
+
+.tableSpace {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Space out elements */
+  /* padding: 8px 0;
+  gap: 8px; */
+}
+
+.task-row {
+  margin: 0 8px;
+}
+
+.collapseHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.add-section {
+  display: flex;
+  align-items: center;
+  margin: 16px;
+  cursor: pointer;
+  color: #1890ff;
+}
+
+.ml-11 {
+  margin-left: 16px;
+}
+
+.mt-2 {
+  margin-top: 8px;
+}
+
+.task-row {
+  padding: 4px 8px; /* Adjust padding for compactness */
+  margin: 0; /* Remove any default margin */
+  line-height: 1.2; /* Adjust line height for compactness */
+  border-radius: 4px; /* Rounded corners for a modern look */
+  border-color: #375252;
+  transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition */
+}
+
+.task-row:hover {
+  background-color: #f0f2f3; /* Lighter shade for the hover effect */
+  transform: scale(1.01);
+  cursor: pointer; 
+}
+
+.ant-input {
+  padding: 4px; /* Adjust input padding for compactness */
+  font-size: 12px; /* Adjust font size for compactness */
+}
+
+.ant-select-selector {
+  padding: 4px; /* Adjust padding for select box */
+  font-size: 12px; /* Adjust font size for compactness */
+}
+.collapseHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 8px; /* Padding for section header */
+  transition: background-color 0.3s; /* Smooth transition */
+}
+
+.collapseHead:hover {
+  background-color: #f0f0f0; /* Highlight color on hover */
+}
+
+.section-delete-icon {
+  display: none;
+  color: red;
+  margin-left: 16px;
+  cursor: pointer;
+}
+
+.collapseHead:hover .section-delete-icon {
+  display: inline; /* Show on hover */
+}
+
+.task-header {
+  /* display: flex;  */
+  align-items: center; /* Center align items vertically */
+  font-weight: normal; /* Make the header bold */
+  background-color: #f0f0f0; /* Light background color for distinction */
+  border-bottom: 2px solid #e8e8e8; /* Add a bottom border */
+  padding: 8px; /* Adjust padding for spacing */
+  margin-bottom: 8px; /* Space between header and task rows */
+}
+
+.task-header span {
+  flex: 1; /* Distribute space evenly among spans */
+  text-align: left; /* Align text to the left */
+  padding: 0 12px; /* Add horizontal padding */
+  /* margin-left: 10px */
+}
+
+/* Layout */
+.task-details {
+  padding: 24px;
+  background-color: #f0f2f5;
+  /* padding-bottom: 150px; */
+}
+
+/* Task Header */
+.task-header-card {
+  margin-bottom: 16px;
+  border-radius: 8px;
+  padding: 16px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* .task-header {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  margin: 0;
+} */
+
+/* Card Styling for Each Section */
+.task-details-card,
+.description-card,
+.attachments-card,
+.comments-tabs-card {
+  margin-bottom: 16px;
+  border-radius: 8px;
+  background-color: #ffffff;
+  padding: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* Scrollable Content */
+.scrollable {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+/* Fixed Comments Section */
+.fixed-comments-section {
+  display: flex;
+  align-items: center;
+  background-color: #f0f2f5;
+  padding: 16px;
+  position: sticky;
+  bottom: 0;
+  box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.comment-input-card {
+  flex: 1;
+  margin-left: 12px;
+}
+
+.submit-comment-button {
+  margin-top: 8px;
+}
+
+.task-row {
+  padding: 1px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.task-row:hover {
+  background-color: #f0f0f0;
+  cursor: pointer;
+}
+
+.task-header {
+  /* display: flex; */
+  padding: 5px;
+  font-weight: bold;
+}
+
+.tableSpace {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.hover-highlight {
+  background-color: #d9f7be;
+}
+
+.custom-table .ant-table-cell {
+  padding: 0 !important; /* Remove padding from table cells */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,107 +1,98 @@
 "use client";
-import { Button, Card, Row, Col, Input, message } from "antd";
-import { useState, useEffect } from "react";
-import { Avatar, Dialog } from "@radix-ui/themes";
+import { Card, Input, Table, Avatar, Pagination } from "antd";
+import { useState } from "react";
 import Link from "next/link";
-import ListIconSVG from "../components/ListIconSVG";
 import "../css/card.css";
-import CustomDropdown from "../components/CustomDropdown";
-import PlusCircleOutlined from "../icons/PlusCircleOutlined";
-import { union, filter, orderBy } from "lodash";
-import axios from "axios";
-const ProjectCard = ({ projects }) => {
-  // const [projects, setProjects] = useState([]);
-  // const [inputData, setInputData] = useState("");
-  const [open, setOpen] = useState(false);
-  const [filterValue, setFilterValue] = useState("Recent");
-  // const [loading, setLoading] = useState(true);
-  // const [error, setError] = useState("");
 
-  // Fetch projects on component mount
-  // useEffect(() => {
-  //   const fetchProjects = async () => {
-  //     try {
-  //       const response = await axios.get("/api/projects"); // Replace with your API endpoint
-  //       setProjects(response.data); // Assuming response.data.projects is an array
-  //     } catch (error) {
-  //       message.error("Failed to fetch projects. Please try again.");
-  //       setError("Failed to fetch projects");
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   };
+const ProjectCard = ({ projects, loading }) => {
+  const [searchTerm, setSearchTerm] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(5);
 
-  //   fetchProjects();
-  // }, []);
-  const filteredProjects =
-    filterValue === "All" ? projects : projects.slice(0, 5);
+  // Filter projects based on the search term in name or description
+  const filteredProjects = projects.filter(
+    (project) =>
+      project.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      (project.description &&
+        project.description.toLowerCase().includes(searchTerm.toLowerCase()))
+  );
 
-  // const onInputChange = (e) => {
-  //   setInputData(e.target.value);
-  // };
+  // Get current page's projects
+  const paginatedProjects = filteredProjects.slice(
+    (currentPage - 1) * pageSize,
+    currentPage * pageSize
+  );
 
-  // const onAddProject = (e) => {
-  //   projectNames.splice(0, 0, inputData);
-  //   if (filterValue == "Recents") {
-  //     setProjectNames(projectNames.slice(0, 5));
-  //   } else {
-  //     setProjectNames(projectNames);
-  //   }
-  //   setOpen(false);
-  // };
+  // Handle page change
+  const handlePageChange = (page, pageSize) => {
+    setCurrentPage(page);
+    setPageSize(pageSize);
+  };
 
-  // if (loading) {
-  //   return <p>Loading...</p>;
-  // }
-  // if (error) return <p>{error}</p>;
-
-  const projectElements = filteredProjects.map((project) => (
-    <Col className="cardLine" span={12} key={project.id}>
-      <ListIconSVG />
-      <Link
-        href={{
-          pathname: `/projectView/${project.id}`,
-          query: { name: project.id },
-        }}
-      >
-        <p className="projectName">{project.name}</p>
-      </Link>
-      {/* Optionally render sites if needed */}
-      {/* {project.sites.length > 0 && (
-        <div style={{ marginLeft: "20px" }}>
-          <h4>Sites:</h4>
-          <ul>
-            {project.sites.map((site) => (
-              <li key={site.id}>
-                <p>Site Name: {site.siteName}</p>
-                <p>Region: {site.region}</p>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )} */}
-    </Col>
-  ));
+  const columns = [
+    {
+      title: "Project Name",
+      dataIndex: "name",
+      key: "name",
+      render: (text, project) => (
+        <Link href={`/projectView/${project.id}`}>
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <Avatar
+              className="letter-avatar"
+              size="small"
+              style={{ marginRight: 8 }}
+            >
+              {project.name.charAt(0).toUpperCase()}
+            </Avatar>
+            {text}
+          </div>
+        </Link>
+      ),
+    },
+    {
+      title: "Description",
+      dataIndex: "description",
+      key: "description",
+      render: (text) => text || "No description available",
+    },
+  ];
 
   return (
-    <div style={{ flexBasis: "97%", margin: "20px", height: "350px" }}>
-      <Card
-        title="Projects"
-        extra={
-          <CustomDropdown
-            defaultValue="Recent"
-            constName="projectShowOptions"
-            onSelect={(val: any) => {
-              setFilterValue(val);
-            }}
-          />
-        }
-        bordered={false}
-        style={{ height: "100%" }}
-      >
-        <Row gutter={[16, 24]}>{projectElements}</Row>
-      </Card>
-    </div>
+    <Card
+      title="Projects"
+      loading={loading}
+      extra={
+        <Input
+          placeholder="Search projects"
+          value={searchTerm}
+          onChange={(e) => {
+            setSearchTerm(e.target.value);
+            setCurrentPage(1); // Reset to the first page on search
+          }}
+          style={{ width: 200 }}
+        />
+      }
+      bordered={false}
+      className="full-height-card"
+    >
+      <Table
+        dataSource={paginatedProjects}
+        columns={columns}
+        pagination={false}
+        rowKey="id"
+        size="small" // Makes the table more compact
+      />
+      <div className="pagination-container" style={{ marginTop: 16 }}>
+        <Pagination
+          current={currentPage}
+          pageSize={pageSize}
+          total={filteredProjects.length}
+          onChange={handlePageChange}
+          showSizeChanger
+          pageSizeOptions={["5", "10", "15"]}
+        />
+      </div>
+    </Card>
   );
 };
 
