@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Card, Segmented, Table } from "antd";
 
-const MyApprovalsCard = () => {
-  const [activeTab, setActiveTab] = useState("In Review");
+const MyReportsCard = () => {
+  const [activeTab, setActiveTab] = useState("Open");
   const handleTabChange = (value) => {
     setActiveTab(value);
   };
@@ -12,11 +12,6 @@ const MyApprovalsCard = () => {
       title: "Report Name",
       dataIndex: "reportName",
       key: "reportName",
-    },
-    {
-      title: "Assignee",
-      dataIndex: "assignee",
-      key: "assignee",
     },
     {
       title: "Site",
@@ -30,38 +25,69 @@ const MyApprovalsCard = () => {
     },
   ];
 
-  // Sample approval data for each tab
-  const approvalData = {
-    "In Review": [
+  // Sample task data for each tab
+  const reportData = {
+    Open: [
       {
         key: 1,
         reportName: "TSSR",
-        assignee: "John Doe",
         site: "NewTech 5G Tower - CD1",
         project: "5G Network Expansion - Urban Area",
       },
       {
         key: 2,
         reportName: "Hardware",
-        assignee: "Jane Smith",
         site: "NewTech 5G Tower - CD2",
+        project: "5G Network Expansion - Rural Area",
+      },
+      {
+        key: 3,
+        reportName: "Hardware",
+        site: "NewTech 5G Tower - CD3",
         project: "5G Network Expansion - Urban Area",
+      },
+      {
+        key: 4,
+        reportName: "TSSR",
+        site: "NewTech 5G Tower - CD4",
+        project: "5G Network Expansion - Rural Area",
+      },
+      {
+        key: 5,
+        reportName: "Hardware",
+        site: "NewTech 5G Tower - CD5",
+        project: "5G Network Expansion - Urban Area",
+      },
+    ],
+    "In Progress": [
+      {
+        key: 3,
+        reportName: "TSSR",
+        site: "NewTech 5G Tower - CD4",
+        project: "5G Network Expansion - Urban Area",
+      },
+    ],
+    "In Review": [
+      {
+        key: 4,
+        reportName: "Hardware",
+        site: "NewTech 5G Tower - CD1",
+        project: "5G Network Expansion - Suburb Area",
       },
     ],
     Completed: [
       {
-        key: 3,
+        key: 5,
         reportName: "TSSR",
-        assignee: "Alice Johnson",
-        site: "NewTech 5G Tower - CD2",
-        project: "5G Network Expansion - Suburab Area",
+        site: "NewTech 5G Tower - CD1",
+        project: "5G Network Expansion - Central Area",
       },
     ],
   };
 
   return (
     <Card
-      title="My Approvals"
+      title="My Reports"
       style={{
         height: "100%",
         overflow: "hidden",
@@ -70,13 +96,13 @@ const MyApprovalsCard = () => {
       }}
     >
       <Segmented
-        options={["In Review", "Completed"]}
+        options={["Open", "In Progress", "In Review", "Completed"]}
         value={activeTab}
         onChange={handleTabChange}
       />
       <div style={{ overflowY: "auto", marginTop: "16px", flex: 1 }}>
         <Table
-          dataSource={approvalData[activeTab]}
+          dataSource={reportData[activeTab]}
           columns={columns}
           pagination={false}
           size="small"
@@ -87,4 +113,4 @@ const MyApprovalsCard = () => {
   );
 };
 
-export default MyApprovalsCard;
+export default MyReportsCard;

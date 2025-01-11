@@ -9,6 +9,7 @@ import {
   Table,
   Tag,
   Tabs,
+  Input,
   message,
   Modal,
   Avatar,
@@ -235,7 +236,7 @@ const SitePage = ({ params }: Props) => {
           className="letter-avatar"
           shape="square"
           size={48}
-          style={{ backgroundColor: "#375252" }}
+          style={{ backgroundColor: "#773777" }}
         >
           {site.siteName?.charAt(0).toUpperCase()}
         </Avatar>
@@ -342,7 +343,25 @@ const SitePage = ({ params }: Props) => {
                 onChange={setViewMode}
                 // style={{ flex: 1 }} // Take up available space
               />
+
               <div>
+                <Input
+                  placeholder="Enter assignee name"
+                  prefix={
+                    <Avatar
+                      style={{
+                        backgroundColor: "#87d068",
+                      }}
+                    >
+                      JD
+                    </Avatar>
+                  }
+                  value="John Doe"
+                  style={{
+                    width: "200px",
+                    marginRight: "8px",
+                  }}
+                />
                 <Button
                   icon={<EyeOutlined />}
                   onClick={showDrawer}
@@ -404,7 +423,7 @@ const SitePage = ({ params }: Props) => {
           </Tabs.TabPane>
         </Tabs>
         <Drawer
-          title="Excel-like Card"
+          title="Report Details"
           placement="right"
           width={800}
           onClose={onCloseDrawer}

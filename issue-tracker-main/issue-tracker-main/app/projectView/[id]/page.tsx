@@ -616,7 +616,7 @@ const ProjectPage = ({ params }: Props) => {
           className="letter-avatar"
           shape="square"
           size={48}
-          style={{ backgroundColor: "#375252" }}
+          style={{ backgroundColor: "#773777" }}
         >
           {project.name?.charAt(0).toUpperCase()}
         </Avatar>

@@ -149,6 +149,11 @@ const SiteCard = ({ projectId }) => {
           type="primary"
           onClick={showModal}
           icon={<PlusCircleOutlined />}
+          style={{
+            backgroundColor: "#450e45", // Custom background color
+            borderColor: "#450e45", // Custom border color
+            color: "#fff", // Custom text color
+          }}
         >
           Add Site
         </Button>

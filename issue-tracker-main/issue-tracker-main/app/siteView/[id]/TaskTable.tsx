@@ -668,78 +668,78 @@ const TaskTable = ({ value, name }) => {
         </span>
       ),
     },
-    {
-      title: <span style={{ fontWeight: "bold" }}>Assignee</span>,
-      dataIndex: "assignee",
-      key: "assignee",
-      width: "15%", // Moderate width for names
-      render: (text, task) => (
-        <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-          <Avatar
-            style={{
-              width: "30px", // Reduced width for smaller size
-              height: "30px", // Reduced height to match width
-              fontSize: "14px", // Smaller font size for the initials
-              backgroundColor: "#708090", // Background color for the avatar
-              color: "white", // White text color
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center", // Centering the text inside the avatar
-            }}
-          >
-            {text ? text[0] : "A"} {/* Display the first letter of the name */}
-          </Avatar>
-          <span
-            style={{
-              fontSize: "14px",
-              fontWeight: 500,
-              color: "#708090",
-              overflow: "hidden",
-              whiteSpace: "nowrap",
-              textOverflow: "ellipsis",
-            }}
-          >
-            {text || "Assignee Name"}
-          </span>
-        </div>
-      ),
-    },
-    {
-      title: <span style={{ fontWeight: "bold" }}>Reviewer</span>,
-      dataIndex: "reviewer",
-      key: "reviewer",
-      width: "15%", // Similar width as Assignee
-      render: (text, task) => (
-        <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-          <Avatar
-            style={{
-              width: "30px", // Reduced width for smaller size
-              height: "30px", // Reduced height to match width
-              fontSize: "14px", // Smaller font size for the initials
-              backgroundColor: "#708090", // Background color for the avatar
-              color: "white", // White text color
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center", // Centering the text inside the avatar
-            }}
-          >
-            {text ? text[0] : "A"} {/* Display the first letter of the name */}
-          </Avatar>
-          <span
-            style={{
-              fontSize: "14px",
-              fontWeight: 500,
-              color: "#708090",
-              overflow: "hidden",
-              whiteSpace: "nowrap",
-              textOverflow: "ellipsis",
-            }}
-          >
-            {text || "Reviewer Name"}
-          </span>
-        </div>
-      ),
-    },
+    // {
+    //   title: <span style={{ fontWeight: "bold" }}>Assignee</span>,
+    //   dataIndex: "assignee",
+    //   key: "assignee",
+    //   width: "15%", // Moderate width for names
+    //   render: (text, task) => (
+    //     <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+    //       <Avatar
+    //         style={{
+    //           width: "30px", // Reduced width for smaller size
+    //           height: "30px", // Reduced height to match width
+    //           fontSize: "14px", // Smaller font size for the initials
+    //           backgroundColor: "#708090", // Background color for the avatar
+    //           color: "white", // White text color
+    //           display: "flex",
+    //           justifyContent: "center",
+    //           alignItems: "center", // Centering the text inside the avatar
+    //         }}
+    //       >
+    //         {text ? text[0] : "A"} {/* Display the first letter of the name */}
+    //       </Avatar>
+    //       <span
+    //         style={{
+    //           fontSize: "14px",
+    //           fontWeight: 500,
+    //           color: "#708090",
+    //           overflow: "hidden",
+    //           whiteSpace: "nowrap",
+    //           textOverflow: "ellipsis",
+    //         }}
+    //       >
+    //         {text || "Assignee Name"}
+    //       </span>
+    //     </div>
+    //   ),
+    // },
+    // {
+    //   title: <span style={{ fontWeight: "bold" }}>Reviewer</span>,
+    //   dataIndex: "reviewer",
+    //   key: "reviewer",
+    //   width: "15%", // Similar width as Assignee
+    //   render: (text, task) => (
+    //     <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+    //       <Avatar
+    //         style={{
+    //           width: "30px", // Reduced width for smaller size
+    //           height: "30px", // Reduced height to match width
+    //           fontSize: "14px", // Smaller font size for the initials
+    //           backgroundColor: "#708090", // Background color for the avatar
+    //           color: "white", // White text color
+    //           display: "flex",
+    //           justifyContent: "center",
+    //           alignItems: "center", // Centering the text inside the avatar
+    //         }}
+    //       >
+    //         {text ? text[0] : "A"} {/* Display the first letter of the name */}
+    //       </Avatar>
+    //       <span
+    //         style={{
+    //           fontSize: "14px",
+    //           fontWeight: 500,
+    //           color: "#708090",
+    //           overflow: "hidden",
+    //           whiteSpace: "nowrap",
+    //           textOverflow: "ellipsis",
+    //         }}
+    //       >
+    //         {text || "Reviewer Name"}
+    //       </span>
+    //     </div>
+    //   ),
+    // },
     {
       title: <span style={{ fontWeight: "bold" }}>Due Date</span>,
       dataIndex: "dueDate",

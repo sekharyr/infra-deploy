@@ -35,12 +35,23 @@ const ProjectCard = ({ projects, loading }) => {
       dataIndex: "name",
       key: "name",
       render: (text, project) => (
-        <Link href={`/projectView/${project.id}`}>
+        <Link
+          href={`/projectView/${project.id}`}
+          style={{
+            color: "2F4F4F", // Match the avatar background color
+            fontWeight: "bold", // Make the link bold
+          }}
+        >
           <div style={{ display: "flex", alignItems: "center" }}>
             <Avatar
-              className="letter-avatar"
-              size="small"
-              style={{ marginRight: 8 }}
+              // className="letter-avatar"
+              // size="large"
+              style={{
+                backgroundColor: "#773777",
+                color: "#fff",
+                marginRight: 8,
+                fontWeight: "bold",
+              }}
             >
               {project.name.charAt(0).toUpperCase()}
             </Avatar>

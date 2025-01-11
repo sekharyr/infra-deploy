@@ -35,7 +35,7 @@ const ExcelLikeCard = () => {
   // Common column configurations for tables
   const columns = [
     {
-      title: "Name",
+      title: "Site Name",
       dataIndex: "name",
       key: "name",
     },

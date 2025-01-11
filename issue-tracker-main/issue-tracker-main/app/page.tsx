@@ -46,7 +46,7 @@
 
 import React from "react";
 import { Card, Row, Col, Layout } from "antd";
-import MyTasksCard from "./components/MyTasksCard";
+import MyReportsCard from "./components/MyReportsCard";
 import MyApprovalsCard from "./components/MyApprovalsCard";
 import ReportSummaryCard from "./components/ReportSummaryCard";
 import GenerateReportCard from "./components/GenerateReportCard";
@@ -177,7 +177,7 @@ const HomePage = () => {
         {/* First row with two columns */}
         <Col xs={24} sm={12} md={12} lg={12} xl={12} style={{ padding: 0 }}>
           {/* <Card style={{ height: "100%", margin: 0 }}> */}
-          <MyTasksCard />
+          <MyReportsCard />
           {/* </Card> */}
         </Col>
         <Col xs={24} sm={12} md={12} lg={12} xl={12} style={{ padding: 0 }}>

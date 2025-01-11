@@ -1,6 +1,3 @@
-
-
-
 .ant-card-body {
   flex: 1; /* This allows the body to expand and fill the remaining space */
   overflow: auto;
@@ -11,7 +8,6 @@
   overflow: auto; /* Makes the list scrollable */
   padding: 0 16px; /* Optional padding for better spacing */
 }
-
 
 .full-height-card {
   height: 100%;
@@ -28,10 +24,9 @@
 }
 
 .letter-avatar {
-  background-color: #375252;
-  color: #fff
+  background-color: #450e45;
+  color: #fff;
 }
-
 
 .bug-icon {
   font-size: 24px; /* Adjust size as needed */
@@ -41,7 +36,7 @@
 .bug-icon-link {
   display: inline-flex;
   align-items: center;
-  color: white
+  color: white;
 }
 
 .logo-text {
@@ -54,7 +49,7 @@
   position: fixed;
   z-index: 1000;
   width: 100%;
-  background: #375252 !important; /* Light grey */
+  background: #450e45 !important; /* Light grey */
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   padding: 0 16px;
 }
@@ -81,17 +76,16 @@
 
 .layout {
   height: 100vh;
-  background-color: #375252;
+  background-color: #450e45;
 }
 
 .main-layout {
   margin-top: 64px;
-  background: #375252;
+  background: #450e45;
 }
 
-
-.sider{
-  background:#213838;
+.sider {
+  background: #450e45;
 
   /* height: 100vh; */
   overflow: auto;
@@ -101,29 +95,27 @@
   background:#213838;
   background-color: #305050;
   /* height: 100vh; */
-  /* overflow: auto; */
-  /* height: calc(100vh - 64px); */
+/* overflow: auto; */
+/* height: calc(100vh - 64px); */
 
 .sider .ant-layout-sider-children {
-  background-color: #375252;
+  background-color: #450e45;
 }
 
 .sider {
-  background-color: #375252 !important; /* Light grey for the Menu inside the Sider */
+  background-color: #450e45 !important; /* Light grey for the Menu inside the Sider */
 }
 
 .sider .ant-menu {
-  background-color: #375252
+  background-color: #450e45;
 }
 .sider .ant-menu-item {
-  background-color: #273a3a !important; /* Ensures menu items inherit the background */
+  background-color: #773777 !important; /* Ensures menu items inherit the background */
 }
 
 .sider .ant-layout-sider-trigger {
-  background-color: #273a3a !important; /* Ensures menu items inherit the background */
+  background-color: #450e45 !important; /* Ensures menu items inherit the background */
 }
-
-
 
 .menu {
   height: 100%;
@@ -147,7 +139,6 @@
   background: var(--ant-layout-background-color);
   border-radius: 8px; /* Optional */
 }
-
 
 @tailwind base;
 @tailwind components;
@@ -325,7 +316,6 @@ button {
   height: 32px; /* Set row height */
   line-height: 32px; /* Align text vertically in the cell */
   font-weight: normal;
-  
 }
 
 .custom-table .ant-table-tbody > tr > td.ant-table-cell {
@@ -383,7 +373,7 @@ button {
   text-align: left; /* Align text to the center for an Excel-like look */
   height: 32px; /* Set row height */
   line-height: 32px; /* Align text vertically in the cell */
-  font-weight: normal; 
+  font-weight: normal;
   /* display: flex; */
   box-sizing: border-box;
 }
@@ -425,7 +415,7 @@ button {
   width: 10px;
   height: 100%;
   /* cursor: col-resize; */
-  
+
   display: inline-block;
 }
 
@@ -460,7 +450,7 @@ button {
   text-align: left; /* Align text to the center for an Excel-like look */
   height: 32px; /* Set row height */
   line-height: 32px; /* Align text vertically in the cell */
-  font-weight: normal; 
+  font-weight: normal;
   /* display: flex; */
   box-sizing: border-box;
 }
@@ -511,7 +501,7 @@ button {
 }
 
 .ant-avatar {
-  background: #375252;
+  background: #450e45;
 }
 
 .tableSpace {
@@ -554,14 +544,14 @@ button {
   margin: 0; /* Remove any default margin */
   line-height: 1.2; /* Adjust line height for compactness */
   border-radius: 4px; /* Rounded corners for a modern look */
-  border-color: #375252;
+  border-color: #450e45;
   transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition */
 }
 
 .task-row:hover {
   background-color: #f0f2f3; /* Lighter shade for the hover effect */
   transform: scale(1.01);
-  cursor: pointer; 
+  cursor: pointer;
 }
 
 .ant-input {
@@ -705,16 +695,3 @@ button {
 .custom-table .ant-table-cell {
   padding: 0 !important; /* Remove padding from table cells */
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

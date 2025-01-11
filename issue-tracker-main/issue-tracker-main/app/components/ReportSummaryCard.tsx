@@ -14,15 +14,15 @@ const { Option } = Select;
 // Sample options for Project, Site, and Report selection
 const projectOptions = [
   {
-    value: "Project Alpha",
-    label: "Project Alpha",
+    value: "5G Network Expansion - Urban Area",
+    label: "5G Network Expansion - Urban Area",
     children: [
       {
-        value: "Site 1",
-        label: "Site 1",
+        value: "New Tech 5G Tower - CD1",
+        label: "New Tech 5G Tower - CD1",
         children: [
-          { value: "Report A", label: "Report A" },
-          { value: "Report B", label: "Report B" },
+          { value: "TSSR", label: "TSSR" },
+          { value: "Hardware", label: "Hardware" },
         ],
       },
     ],
@@ -103,8 +103,6 @@ const ReportSummaryCard = () => {
           >
             <Option value="Status">Status</Option>
             <Option value="Priority">Priority</Option>
-            <Option value="Assignee">Assignee</Option>
-            <Option value="Reviewer">Reviewer</Option>
             <Option value="DueDate">Due Date</Option>
           </Select>
         </Col>

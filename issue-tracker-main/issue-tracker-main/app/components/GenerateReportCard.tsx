@@ -4,23 +4,23 @@ import { Card, Cascader, Table, Button, message } from "antd";
 // Sample options for Project and Site selection
 const projectOptions = [
   {
-    value: "Project Alpha",
-    label: "Project Alpha",
+    value: "5G Network Expansion - Urban Area",
+    label: "5G Network Expansion - Urban Area",
     children: [
       {
-        value: "Site 1",
-        label: "Site 1",
+        value: "NewTech 5G Tower - CD1",
+        label: "NewTech 5G Tower - CD1",
         reports: [
-          { value: "Report A", status: "Completed" },
-          { value: "Report B", status: "In Progress" },
+          { value: "TSSR", status: "Completed" },
+          { value: "Hardware", status: "In Progress" },
         ],
       },
       {
-        value: "Site 2",
-        label: "Site 2",
+        value: "NewTech 5G Tower - CD2",
+        label: "NewTech 5G Tower - CD2",
         reports: [
-          { value: "Report C", status: "Completed" },
-          { value: "Report D", status: "In Review" },
+          { value: "TSSR", status: "Completed" },
+          { value: "Hardware", status: "In Review" },
         ],
       },
     ],

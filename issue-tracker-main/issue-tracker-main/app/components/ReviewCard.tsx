@@ -199,7 +199,15 @@ const ReviewCard = () => {
           {/* Navigation Buttons */}
           <Space>
             {currentStep < steps.length - 1 && (
-              <Button type="primary" onClick={next}>
+              <Button
+                type="primary"
+                onClick={next}
+                style={{
+                  backgroundColor: "#450e45", // Custom background color
+                  borderColor: "#450e45", // Custom border color
+                  color: "#fff", // Custom text color
+                }}
+              >
                 Next
               </Button>
             )}

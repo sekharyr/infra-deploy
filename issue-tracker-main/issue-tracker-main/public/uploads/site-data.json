@@ -1,10 +1,10 @@
 {
   "cover_page": {
-    "project_name": "project1",
-    "site_id": "project1",
-    "site_name": "this is first project",
-    "region": "test",
-    "site_picture": "C:\\Users\\Sekhar Yadavali-1503\\Desktop\\SiteManager\\infra-deploy\\issue-tracker-main\\issue-tracker-main\\public\\uploads\\sign.jpg",
+    "project_name": "5G Network Expansion - Urban Area",
+    "site_id": "NT-5G-001",
+    "site_name": "NewTech 5G Tower - Central District1",
+    "region": "Central District1",
+    "site_picture": "C:\\Users\\Sekhar Yadavali-1503\\Desktop\\SiteManager\\infra-deploy\\issue-tracker-main\\issue-tracker-main\\public\\uploads\\WhatsApp Image 2024-12-25 at 21.57.40.jpeg",
     "surveyors": [
       {
         "surveyor": "SBC Name",
